@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skillmer/app/theme.dart';
 import 'package:skillmer/views/home/home_screen.dart';
 
 class Skillmer extends StatelessWidget {
@@ -6,9 +7,7 @@ class Skillmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Skillmer',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: AppTheme.dark(),
       home: HomeScreen(),
     );
   }
