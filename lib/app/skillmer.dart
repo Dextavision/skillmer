@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skillmer/app/theme.dart';
-import 'package:skillmer/views/home/home_screen.dart';
+import 'package:skillmer/views/navigation/navigation.dart';
 
 class Skillmer extends StatelessWidget {
   @override
@@ -8,7 +8,7 @@ class Skillmer extends StatelessWidget {
     return MaterialApp(
       title: 'Skillmer',
       theme: AppTheme.dark(),
-      home: HomeScreen(),
+      home: Navigation(),
     );
   }
 }
