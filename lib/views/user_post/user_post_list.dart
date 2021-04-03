@@ -15,9 +15,12 @@ class UserPostList extends StatelessWidget {
       itemBuilder: (context, index) {
         return Row(
           children: [
-            UserPostCard(
-              username: userPostItems[index].username,
-              avatar: userPostItems[index].avatar,
+            Expanded(
+              child: UserPostCard(
+                username: userPostItems[index].username,
+                avatar: userPostItems[index].avatar,
+                textPost: userPostItems[index].textPost,
+              ),
             ),
           ],
         );
