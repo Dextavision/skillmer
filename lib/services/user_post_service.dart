@@ -6,16 +6,19 @@ class UserPostService {
     UserPost(
         username: 'Dany',
         avatar: Icons.people_outline,
-        textPost: "Rein in die Olga!"),
+        textPost: "Rein in die Olga!",
+        hashtags: ["#CoD #PS5"]),
     UserPost(
         username: 'Schatzi',
         avatar: Icons.people_outline,
-        textPost: "Skyyr skyyyr"),
+        textPost: "Nur noch einen Schrein!",
+        hashtags: ["#Zelda:BotW #Switch"]),
     UserPost(
       username: 'Bob',
       avatar: Icons.people_outline,
-      textPost: "blub!",
-    )
+      textPost: "Die Story ist einfach nice!",
+      hashtags: ["#FinalFantasy7Remake #PS4"],
+    ),
   ];
 
   List<UserPost> getUserPosts() {

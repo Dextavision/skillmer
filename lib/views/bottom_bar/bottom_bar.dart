@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skillmer/shared/constants.dart';
 
 class BottomBar extends StatelessWidget {
   final Function onTapped;
@@ -10,6 +11,7 @@ class BottomBar extends StatelessWidget {
     return BottomNavigationBar(
       showSelectedLabels: false,
       showUnselectedLabels: false,
+      backgroundColor: primaryColor,
       type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(

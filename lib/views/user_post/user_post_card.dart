@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:skillmer/shared/constants.dart';
+import 'package:skillmer/shared/models/user_post_model.dart';
+import 'package:skillmer/views/user_post/user_post_icon_list.dart';
 
 class UserPostCard extends StatelessWidget {
-  final String username;
-  final IconData avatar;
-  final String? textPost;
+  final UserPost userPost;
 
-  UserPostCard({required this.username, required this.avatar, this.textPost});
+  UserPostCard({required this.userPost});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +28,11 @@ class UserPostCard extends StatelessWidget {
                     vertical: 5.0,
                   ),
                   child: Icon(
-                    avatar,
+                    userPost.avatar,
                   ),
                 ),
                 Text(
-                  username,
+                  userPost.username,
                 ),
               ],
             ),
@@ -49,12 +49,30 @@ class UserPostCard extends StatelessWidget {
                     ),
                     child: Container(
                       height: 60.0,
-                      child: Text(textPost ?? ''),
+                      child: Text(userPost.textPost ?? ''),
                     ),
                   ),
                 ),
               ],
             ),
+            Divider(
+              color: accentColor,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  userPost.hashtags!.join(","),
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              color: accentColor,
+            ),
+            UserPostIconList()
           ],
         ),
       ),
