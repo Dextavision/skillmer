@@ -19,6 +19,12 @@ class UserPostService {
       textPost: "Die Story ist einfach nice!",
       hashtags: ["#FinalFantasy7Remake #PS4"],
     ),
+    UserPost(
+      username: 'Toby',
+      avatar: Icons.people_outline,
+      textPost: "99er Messi, da seh ich mich!",
+      hashtags: ["#Fifa21 #PS5"],
+    ),
   ];
 
   List<UserPost> getUserPosts() {
