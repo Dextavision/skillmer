@@ -23,3 +23,5 @@ doc/api/
 # CUSTOM
 .flutter-plugins
 .flutter-plugins-dependencies
+
+lib/backend/database.dart

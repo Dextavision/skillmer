@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skillmer/backend/database.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 
 class UserPostService {
@@ -30,5 +31,12 @@ class UserPostService {
 
   List<UserPost> getUserPosts() {
     return _userPost;
+  }
+
+  selecetHashtags() async {
+    final conn = await Database.connectDatabase();
+    final hashtagList = await conn.query('select * from Hashtag');
+
+    print(hashtagList);
   }
 }
