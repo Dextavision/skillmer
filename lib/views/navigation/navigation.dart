@@ -34,6 +34,7 @@ class _NavigationState extends State<Navigation> {
         leading: Icon(
           Icons.supervised_user_circle_rounded,
         ),
+        elevation: 0,
       ),
       body: _skillmerScreens.elementAt(_selectedIndex),
       bottomNavigationBar: BottomBar(

@@ -16,7 +16,7 @@ class UserPostCard extends StatelessWidget {
         vertical: 10.0,
       ),
       child: Card(
-        elevation: 7,
+        elevation: 1,
         color: primaryColor,
         child: Column(
           children: [

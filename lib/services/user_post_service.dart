@@ -11,7 +11,8 @@ class UserPostService {
     UserPost(
         username: 'Schatzi',
         avatar: Icons.people_outline,
-        textPost: "Nur noch einen Schrein!",
+        textPost:
+            "Nur noch einen Schrein!Nur noch einen Schrein!Nur noch einen Schrein!Nur noch einen Schrein!Nur noch einen Schrein!Nur noch einen Schrein!Nur noch einen Schrein!Nur noch einen Schrein!Nur noch einen Schrein!Nur noch einen Schrein!",
         hashtags: ["#Zelda:BotW #Switch"]),
     UserPost(
       username: 'Bob',
