@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:skillmer/services/user_post_service.dart';
 import 'package:skillmer/shared/constants.dart';
 
-class AddPost extends StatelessWidget {
+class AddPost extends StatefulWidget {
+  @override
+  _AddPostState createState() => _AddPostState();
+}
+
+class _AddPostState extends State<AddPost> {
+  TextEditingController postTextController = new TextEditingController();
+
+  void addPost() {
+    UserPostService postService = new UserPostService();
+    postService.addUserPost(postTextController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,6 +32,7 @@ class AddPost extends StatelessWidget {
           ),
           Expanded(
             child: TextField(
+              controller: postTextController,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Whats up?',
@@ -45,7 +59,9 @@ class AddPost extends StatelessWidget {
             children: [
               IconButton(
                 icon: Icon(Icons.control_point),
-                onPressed: () {},
+                onPressed: () {
+                  addPost();
+                },
                 iconSize: 40.0,
               )
             ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skillmer/services/user_post_service.dart';
 import 'package:skillmer/shared/constants.dart';
 
 class UserPostIconList extends StatefulWidget {
@@ -34,8 +33,6 @@ class _UserPostIconListState extends State<UserPostIconList> {
 
   _levelUpClicked() {
     setState(() {
-      UserPostService userPostService = new UserPostService();
-      userPostService.selecetHashtags();
       if (_levelUpIconColor == Colors.white) {
         _levelUpIconColor = accentColor;
       } else {
