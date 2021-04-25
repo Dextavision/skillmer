@@ -61,12 +61,14 @@ class UserPostCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  userPost.hashtags!.join(","),
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
+                userPost.hashtags != null
+                    ? Text(
+                        userPost.hashtags!.join(","),
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      )
+                    : Text(''),
               ],
             ),
             Divider(

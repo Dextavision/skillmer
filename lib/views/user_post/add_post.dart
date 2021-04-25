@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skillmer/services/user_post_service.dart';
 import 'package:skillmer/shared/constants.dart';
 
 class AddPost extends StatefulWidget {
@@ -10,10 +9,7 @@ class AddPost extends StatefulWidget {
 class _AddPostState extends State<AddPost> {
   TextEditingController postTextController = new TextEditingController();
 
-  void addPost() {
-    UserPostService postService = new UserPostService();
-    postService.addUserPost(postTextController.text);
-  }
+  void addPost() {}
 
   @override
   Widget build(BuildContext context) {

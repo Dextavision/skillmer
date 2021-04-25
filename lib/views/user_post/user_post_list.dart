@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:skillmer/services/user_post_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skillmer/providers/providers.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 import 'package:skillmer/views/user_post/user_post_card.dart';
 
-class UserPostList extends StatelessWidget {
+class UserPostList extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    final UserPostService userPostService = UserPostService();
+  Widget build(BuildContext context, ScopedReader watch) {
+    final AsyncValue<List<UserPost>> userPostItems = watch(postProvider);
 
-    final List<UserPost> userPostItems = userPostService.getUserPosts();
-
-    return ListView.builder(
-      itemCount: userPostItems.length,
-      itemBuilder: (context, index) {
-        return Row(
-          children: [
-            Expanded(
-              child: UserPostCard(
-                userPost: userPostItems[index],
+    return userPostItems.when(
+      loading: () => CircularProgressIndicator(),
+      error: (error, stack) => Text('Oops, something unexpected happened'),
+      data: (userPost) => ListView.builder(
+        itemCount: userPost.length,
+        itemBuilder: (context, index) {
+          return Row(
+            children: [
+              Expanded(
+                child: UserPostCard(
+                  userPost: userPost[index],
+                ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }
