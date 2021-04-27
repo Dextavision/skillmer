@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:skillmer/providers/providers.dart';
 import 'package:skillmer/shared/constants.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddPost extends StatefulWidget {
   @override
@@ -8,8 +10,6 @@ class AddPost extends StatefulWidget {
 
 class _AddPostState extends State<AddPost> {
   TextEditingController postTextController = new TextEditingController();
-
-  void addPost() {}
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,9 @@ class _AddPostState extends State<AddPost> {
               IconButton(
                 icon: Icon(Icons.control_point),
                 onPressed: () {
-                  addPost();
+                  context
+                      .read(postProviderAsync.notifier)
+                      .addUserPost(postTextController.text);
                 },
                 iconSize: 40.0,
               )

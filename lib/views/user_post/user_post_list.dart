@@ -7,7 +7,7 @@ import 'package:skillmer/views/user_post/user_post_card.dart';
 class UserPostList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final AsyncValue<List<UserPost>> userPostItems = watch(postProvider);
+    final AsyncValue<List<UserPost>> userPostItems = watch(postProviderAsync);
 
     return userPostItems.when(
       loading: () => CircularProgressIndicator(),

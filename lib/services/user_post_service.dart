@@ -21,11 +21,30 @@ class UserPostService {
     return userPosts;
   }
 
-  void addUserPost(String postText) async {
+  Future<List<UserPost>> addUserPost(
+      MySqlConnection conn, String postText) async {
     // TODO: UserService getting Name and ID of current User
-    // await _conn.query(
-    //   'INSERT INTO POST (user_id,likes,post_text) VALUES (1,0,?);',
-    //   [postText],
-    // );
+
+    List<UserPost> userPosts = [];
+
+    // Add new Post
+    await conn.query(
+      'INSERT INTO POST (user_id,likes,post_text) VALUES (1,0,?);',
+      [postText],
+    );
+
+    // Read all posts in Database
+
+    final userPostQuery = await conn.query('select * from Post;');
+
+    for (var userPost in userPostQuery) {
+      userPosts.add(new UserPost(
+        username: 'Dany',
+        avatar: Icons.account_circle,
+        textPost: userPost.fields['post_text'].toString(),
+      ));
+    }
+
+    return userPosts;
   }
 }
