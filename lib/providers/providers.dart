@@ -28,11 +28,17 @@ class PostAsyncNotifier extends StateNotifier<AsyncValue<List<UserPost>>> {
   }
 
   void addUserPost(String postText) async {
-    // MySqlConnection conn = await Database().get();
     state = AsyncLoading();
     // Add Post in Database and get the refreshed list
     List<UserPost> posts =
         await read(userPostProvider).addUserPost(_conn, postText);
+    state = AsyncData(posts);
+  }
+
+  void deleteUserPost(int postID) async {
+    state = AsyncLoading();
+    List<UserPost> posts =
+        await read(userPostProvider).deleteUserPost(_conn, postID);
     state = AsyncData(posts);
   }
 }

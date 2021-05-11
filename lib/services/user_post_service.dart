@@ -8,23 +8,14 @@ final userPostProvider = Provider<UserPostService>((ref) => UserPostService());
 class UserPostService {
   Future<List<UserPost>> loadUserPosts(MySqlConnection conn) async {
     final userPostQuery = await conn.query('select * from Post;');
-    List<UserPost> userPosts = [];
 
-    for (var userPost in userPostQuery) {
-      userPosts.add(new UserPost(
-        username: 'Dany',
-        avatar: Icons.account_circle,
-        textPost: userPost.fields['post_text'].toString(),
-      ));
-    }
+    List<UserPost> userPosts = fillUserPostList(userPostQuery);
 
     return userPosts;
   }
 
   Future<List<UserPost>> addUserPost(
       MySqlConnection conn, String postText) async {
-    // TODO: UserService getting Name and ID of current User
-
     List<UserPost> userPosts = [];
 
     // Add new Post
@@ -34,11 +25,40 @@ class UserPostService {
     );
 
     // Read all posts in Database
-
     final userPostQuery = await conn.query('select * from Post;');
+
+    userPosts = fillUserPostList(userPostQuery);
+
+    return userPosts;
+  }
+
+  Future<List<UserPost>> deleteUserPost(
+      MySqlConnection conn, int postID) async {
+    List<UserPost> userPosts = [];
+
+    // Add new Post
+    await conn.query(
+      'DELETE FROM Post where post_id = ?',
+      [postID],
+    );
+
+    // Read all posts in Database
+    final userPostQuery = await conn.query('select * from Post;');
+    userPosts = fillUserPostList(userPostQuery);
+
+    return userPosts;
+  }
+
+  // #################
+  // UTILITY FUNCTIONS
+  // #################
+
+  List<UserPost> fillUserPostList(Results userPostQuery) {
+    List<UserPost> userPosts = [];
 
     for (var userPost in userPostQuery) {
       userPosts.add(new UserPost(
+        id: userPost.fields['post_id'],
         username: 'Dany',
         avatar: Icons.account_circle,
         textPost: userPost.fields['post_text'].toString(),
