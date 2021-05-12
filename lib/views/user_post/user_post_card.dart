@@ -34,13 +34,14 @@ class UserPostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20.0,
-        vertical: 10.0,
-      ),
+      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 2.0),
       child: Card(
-        elevation: 7,
+        margin: const EdgeInsets.all(0),
         color: primaryColor,
+        shape: RoundedRectangleBorder(
+            // side: BorderSide(color: Colors.white, width: 0.1),
+            // borderRadius: BorderRadius.circular(4.0),
+            ),
         child: Column(
           children: [
             Row(
@@ -49,7 +50,7 @@ class UserPostCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10.0,
-                    vertical: 5.0,
+                    vertical: 1.0,
                   ),
                   child: Icon(
                     userPost.avatar,
@@ -97,8 +98,11 @@ class UserPostCard extends StatelessWidget {
                 ),
               ],
             ),
-            Divider(
-              color: accentColor,
+            Visibility(
+              child: Divider(
+                color: accentColor,
+              ),
+              visible: userPost.hashtags != null,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

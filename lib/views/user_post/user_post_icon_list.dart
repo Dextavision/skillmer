@@ -54,9 +54,6 @@ class _UserPostIconListState extends State<UserPostIconList> {
           color: _shareIconColor,
           iconSize: 20.0,
         ),
-        SizedBox(
-          width: 10.0,
-        ),
         IconButton(
           icon: Icon(Icons.bookmark_outline),
           onPressed: () {
@@ -65,17 +62,11 @@ class _UserPostIconListState extends State<UserPostIconList> {
           color: _bookmarkIconColor,
           iconSize: 20.0,
         ),
-        SizedBox(
-          width: 10.0,
-        ),
         IconButton(
           icon: Icon(Icons.messenger_outline_sharp),
           onPressed: () {},
           color: Colors.white,
           iconSize: 20.0,
-        ),
-        SizedBox(
-          width: 10.0,
         ),
         IconButton(
           icon: Icon(Icons.plus_one_outlined),

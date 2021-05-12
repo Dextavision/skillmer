@@ -31,8 +31,11 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Skillmer'),
-        leading: Icon(
-          Icons.supervised_user_circle_rounded,
+        leading: IconButton(
+          icon: Icon(Icons.supervised_user_circle_rounded),
+          onPressed: () {
+            Navigator.pushNamed(context, '/profile');
+          },
         ),
         elevation: 0,
       ),
