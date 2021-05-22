@@ -23,12 +23,13 @@ class AppTheme {
     final themeData = ThemeData(brightness: brightness);
 
     return GoogleFonts.exo2TextTheme(themeData.textTheme).copyWith(
-      headline1: GoogleFonts.gugi(),
-      headline2: GoogleFonts.gugi(),
-      headline3: GoogleFonts.gugi(),
-      headline4: GoogleFonts.gugi(),
-      headline5: GoogleFonts.gugi(),
-      headline6: GoogleFonts.gugi(),
+      headline1: GoogleFonts.quicksand(),
+      headline2: GoogleFonts.quicksand(),
+      headline3: GoogleFonts.quicksand(),
+      headline4: GoogleFonts.quicksand(),
+      headline5: GoogleFonts.quicksand(),
+      headline6: GoogleFonts.quicksand(),
+      bodyText2: GoogleFonts.quicksand(),
     );
   }
 }

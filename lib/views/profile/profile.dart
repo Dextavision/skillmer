@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:skillmer/shared/constants.dart';
+import 'package:skillmer/views/profile/profile_tabs.dart';
 
 class Profile extends StatelessWidget {
   @override
@@ -21,19 +23,101 @@ class Profile extends StatelessWidget {
                 Spacer(
                   flex: 1,
                 ),
-                Expanded(
-                  child: Icon(
-                    Icons.account_circle_sharp,
-                    size: 70,
-                  ),
+                Text(
+                  "Profile",
+                  style: profileText,
                 ),
                 Spacer(
-                  flex: 2,
-                )
+                  flex: 1,
+                ),
+                Expanded(
+                  child: Icon(
+                    Icons.settings,
+                  ),
+                ),
               ],
             ),
-            Divider(
-              color: Colors.white,
+            Container(
+              child: Icon(
+                Icons.account_circle_sharp,
+                size: 110.0,
+              ),
+            ),
+            Container(
+              child: Text(
+                'Dextavision',
+                style: profileText,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: Column(
+                children: [
+                  Divider(
+                    color: accentColor,
+                    indent: 120.0,
+                    endIndent: 120.0,
+                  ),
+                  Container(
+                    child: Text(
+                      'Elite',
+                      style: profileText,
+                    ),
+                  ),
+                  Divider(
+                    color: accentColor,
+                    indent: 120.0,
+                    endIndent: 120.0,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 90.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        'Posts',
+                        style: profileText,
+                      ),
+                      Text(
+                        '1337',
+                        style: profileNumbers,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'Followers',
+                        style: profileText,
+                      ),
+                      Text(
+                        '69',
+                        style: profileNumbers,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'Follows',
+                        style: profileText,
+                      ),
+                      Text(
+                        '42',
+                        style: profileNumbers,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ProfileTabs(),
             ),
           ],
         ),
