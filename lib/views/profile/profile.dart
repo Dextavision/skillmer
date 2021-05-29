@@ -20,19 +20,21 @@ class Profile extends StatelessWidget {
                     },
                   ),
                 ),
-                Spacer(
-                  flex: 1,
-                ),
-                Text(
-                  "Profile",
-                  style: profileText,
-                ),
-                Spacer(
-                  flex: 1,
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      "Profile",
+                      style: profileText,
+                    ),
+                  ),
+                  flex: 3,
                 ),
                 Expanded(
-                  child: Icon(
-                    Icons.settings,
+                  child: IconButton(
+                    icon: Icon(Icons.settings),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profile-settings');
+                    },
                   ),
                 ),
               ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skillmer/app/theme.dart';
 import 'package:skillmer/views/navigation/navigation.dart';
 import 'package:skillmer/views/profile/profile.dart';
+import 'package:skillmer/views/profile/profile_settings.dart';
 
 class Skillmer extends StatelessWidget {
   @override
@@ -11,10 +12,9 @@ class Skillmer extends StatelessWidget {
       theme: AppTheme.dark(),
       initialRoute: '/',
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => Navigation(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
         '/profile': (context) => Profile(),
+        '/profile-settings': (context) => ProfileSettings()
       },
     );
   }
