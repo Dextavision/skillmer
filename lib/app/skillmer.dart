@@ -1,7 +1,10 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skillmer/app/theme.dart';
+import 'package:skillmer/providers/providers.dart';
+import 'package:skillmer/views/login/login.dart';
 import 'package:skillmer/views/navigation/navigation.dart';
 import 'package:skillmer/views/profile/profile.dart';
 import 'package:skillmer/views/profile/profile_settings.dart';
@@ -36,8 +39,21 @@ class _SkillmerState extends State<Skillmer> {
       title: 'Skillmer',
       theme: AppTheme.dark(),
       initialRoute: '/',
+      home: Consumer(builder: (context, watch, child) {
+        final currentUser = watch(authUserProviderAsync);
+        return currentUser.when(data: (data) {
+          if (data == '') {
+            return LoginPage();
+          }
+          return Navigation();
+        }, loading: () {
+          return Text('Loading');
+        }, error: (e, st) {
+          return Text('ERROR');
+        });
+      }),
       routes: {
-        '/': (context) => Navigation(),
+        // '/': (context) => Navigation(),
         '/profile': (context) => Profile(),
         '/profile-settings': (context) => ProfileSettings(),
       },
