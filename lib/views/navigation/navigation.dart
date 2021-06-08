@@ -31,12 +31,20 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Skillmer'),
-        leading: IconButton(
-          icon: Icon(Icons.supervised_user_circle_rounded),
-          onPressed: () {
-            Navigator.pushNamed(context, '/profile');
-          },
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image(
+            image: AssetImage('assets/images/Skillmer.png'),
+          ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.supervised_user_circle_rounded),
+            onPressed: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+          ),
+        ],
         elevation: 0,
       ),
       body: _skillmerScreens.elementAt(_selectedIndex),

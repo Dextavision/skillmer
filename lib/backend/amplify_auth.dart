@@ -18,7 +18,6 @@ class AWSAuthRepository {
     }
   }
 
-  // Creates a new user with the provided [email] and [password].
   Future<void> signInGoogle() async {
     try {
       await Amplify.Auth.signInWithWebUI(provider: AuthProvider.google);
@@ -26,6 +25,17 @@ class AWSAuthRepository {
       print(e.message);
     }
   }
+
+  // Future<bool> fetchSession() async {
+  //   try {
+  //     AuthSession res = await Amplify.Auth.fetchAuthSession(
+  //         options: CognitoSessionOptions(getAWSCredentials: false));
+  //     return res.isSignedIn;
+  //   } on AuthException catch (e) {
+  //     print(e.message);
+  //     return false;
+  //   }
+  // }
 
   // Signs out the current user which will emit
   // [User.empty] from the [user] Stream.
