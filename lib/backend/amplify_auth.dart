@@ -26,16 +26,16 @@ class AWSAuthRepository {
     }
   }
 
-  // Future<bool> fetchSession() async {
-  //   try {
-  //     AuthSession res = await Amplify.Auth.fetchAuthSession(
-  //         options: CognitoSessionOptions(getAWSCredentials: false));
-  //     return res.isSignedIn;
-  //   } on AuthException catch (e) {
-  //     print(e.message);
-  //     return false;
-  //   }
-  // }
+  Future<bool> fetchSession() async {
+    try {
+      AuthSession res = await Amplify.Auth.fetchAuthSession(
+          options: CognitoSessionOptions(getAWSCredentials: false));
+      return res.isSignedIn;
+    } on AuthException catch (e) {
+      print(e.message);
+      return false;
+    }
+  }
 
   // Signs out the current user which will emit
   // [User.empty] from the [user] Stream.

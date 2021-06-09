@@ -17,6 +17,8 @@ class Skillmer extends StatefulWidget {
 }
 
 class _SkillmerState extends State<Skillmer> {
+  bool _amplifyConfigured = false;
+
   void initState() {
     super.initState();
     _configureAmplify();
@@ -31,6 +33,10 @@ class _SkillmerState extends State<Skillmer> {
     } catch (error) {
       print(error);
     }
+
+    setState(() {
+      _amplifyConfigured = true;
+    });
   }
 
   @override
@@ -39,19 +45,21 @@ class _SkillmerState extends State<Skillmer> {
       title: 'Skillmer',
       theme: AppTheme.dark(),
       initialRoute: '/',
-      home: Consumer(builder: (context, watch, child) {
-        final currentUser = watch(authUserProviderAsync);
-        return currentUser.when(data: (data) {
-          if (data == '') {
-            return LoginPage();
-          }
-          return Navigation();
-        }, loading: () {
-          return Text('Loading');
-        }, error: (e, st) {
-          return Text('ERROR');
-        });
-      }),
+      home: _amplifyConfigured
+          ? Consumer(builder: (context, watch, child) {
+              final currentUser = watch(authUserProviderAsync);
+              return currentUser.when(data: (data) {
+                if (data == '') {
+                  return LoginPage();
+                }
+                return Navigation();
+              }, loading: () {
+                return Text('Loading');
+              }, error: (e, st) {
+                return Text('ERROR');
+              });
+            })
+          : Text('Amplify not yet configured'),
       routes: {
         // '/': (context) => Navigation(),
         '/profile': (context) => Profile(),
