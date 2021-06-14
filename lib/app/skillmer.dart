@@ -8,7 +8,6 @@ import 'package:skillmer/views/login/login.dart';
 import 'package:skillmer/views/navigation/navigation.dart';
 import 'package:skillmer/views/profile/profile.dart';
 import 'package:skillmer/views/profile/profile_settings.dart';
-
 import '../amplifyconfiguration.dart';
 
 class Skillmer extends StatefulWidget {

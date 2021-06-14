@@ -9,5 +9,6 @@ const TextStyle profileText = TextStyle(
 );
 
 const TextStyle profileNumbers = TextStyle(
+  fontSize: 20.0,
   fontWeight: FontWeight.bold,
 );

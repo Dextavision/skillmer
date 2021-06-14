@@ -5,7 +5,7 @@ class ProfileTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -20,8 +20,11 @@ class ProfileTabs extends StatelessWidget {
                   Tab(
                     text: 'Skilled',
                   ),
+                  Tab(
+                    text: 'Bookmarked',
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -30,6 +33,9 @@ class ProfileTabs extends StatelessWidget {
             UserPostList(),
             Text(
               'TODO: Posts user gave XP to',
+            ),
+            Text(
+              'TODO: Posts user bookmarked',
             ),
           ],
         ),
