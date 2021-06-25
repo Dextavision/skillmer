@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mysql1/mysql1.dart';
-import 'package:skillmer/backend/amplify_auth.dart';
-import 'package:skillmer/backend/database.dart';
-import 'package:skillmer/services/user_post_service.dart';
+import 'package:skillmer/model/services/amplify_auth_service.dart';
+import 'package:skillmer/model/database.dart';
+import 'package:skillmer/model/services/user_post_service.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 
 // ###############################
@@ -48,11 +48,3 @@ class PostAsyncNotifier extends StateNotifier<AsyncValue<List<UserPost>>> {
     state = AsyncData(posts);
   }
 }
-
-// ###############################
-// AWS COGNITO AUTHENTICATION PROVIDER
-// ###############################
-final authUserProviderAsync = FutureProvider<String>((ref) {
-  final authAWSRepo = ref.watch(authAWSRepositoryProvider);
-  return authAWSRepo.user.then((value) => value);
-});

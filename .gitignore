@@ -24,7 +24,7 @@ doc/api/
 .flutter-plugins
 .flutter-plugins-dependencies
 
-lib/backend/database.dart
+lib/model/database.dart
 
 #amplify
 amplify/\#current-cloud-backend

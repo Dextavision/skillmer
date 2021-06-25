@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:skillmer/providers/providers.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
+import 'package:skillmer/view_model/providers/user_post_provider.dart';
 import 'package:skillmer/views/user_post/user_post_card.dart';
 
 class UserPostList extends ConsumerWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:skillmer/backend/amplify_auth.dart';
+import 'package:skillmer/model/services/amplify_auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:skillmer/providers/providers.dart';
+import 'package:skillmer/view_model/providers/authentication_provider.dart';
 
 class LoginPage extends StatelessWidget {
   void login(BuildContext context) async {
