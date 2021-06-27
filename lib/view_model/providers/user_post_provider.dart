@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mysql1/mysql1.dart';
-import 'package:skillmer/model/services/amplify_auth_service.dart';
 import 'package:skillmer/model/database.dart';
 import 'package:skillmer/model/services/user_post_service.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
