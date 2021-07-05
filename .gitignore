@@ -69,6 +69,7 @@ app.*.map.json
 /android/app/release
 
 lib/model/database.dart
+lib/model/api/api.dart
 
 #amplify
 amplify/\#current-cloud-backend

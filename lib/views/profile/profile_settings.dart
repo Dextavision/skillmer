@@ -1,8 +1,50 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:skillmer/model/api/api.dart';
 import 'package:skillmer/shared/constants.dart';
 import 'package:skillmer/views/profile/widgets/settings_textfield.dart';
+import 'package:http/http.dart' as http;
 
-class ProfileSettings extends StatelessWidget {
+class ProfileSettings extends StatefulWidget {
+  @override
+  _ProfileSettingsState createState() => _ProfileSettingsState();
+}
+
+class _ProfileSettingsState extends State<ProfileSettings> {
+  void uploadProfileImage() async {
+    // Get presigned URL to upload File directly to S3
+    http.Response presignedURL = await http.post(
+      Uri.parse(
+        API_URL,
+      ),
+    );
+
+    String presignedURLResponse = presignedURL.body;
+    Map<String, dynamic> presignedURLObject = jsonDecode(presignedURLResponse);
+    UploadObject uploadObject = UploadObject.fromJson(presignedURLObject);
+    print(uploadObject.path);
+
+    // Load Asset File for testing purpose, later Image Picker
+    File f = await getImageFileFromAssets('images/dany_profile.png');
+
+    // Upload directly to S3
+    await http.put(Uri.parse(uploadObject.path), body: await f.readAsBytes());
+  }
+
+  Future<File> getImageFileFromAssets(String path) async {
+    final byteData = await rootBundle.load('assets/$path');
+
+    final file = await File('${(await getTemporaryDirectory()).path}/$path')
+        .create(recursive: true);
+    await file.writeAsBytes(byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+    return file;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +90,11 @@ class ProfileSettings extends StatelessWidget {
                     Icons.camera_alt,
                     color: accentColor,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    // TODO: Pick Image
+                    // TODO: Upload Profile Image
+                    uploadProfileImage();
+                  },
                 ),
               ],
             ),
@@ -104,4 +150,20 @@ class ProfileSettings extends StatelessWidget {
       ),
     );
   }
+}
+
+class UploadObject {
+  final String path;
+  final String imageName;
+
+  UploadObject(this.path, this.imageName);
+
+  UploadObject.fromJson(Map<String, dynamic> json)
+      : path = json['uploadURL'],
+        imageName = json['imageName'];
+
+  Map<String, dynamic> toJson() => {
+        'uploadURL': path,
+        'imageName': imageName,
+      };
 }
