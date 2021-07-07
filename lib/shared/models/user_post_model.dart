@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UserPost {
-  const UserPost({
+  UserPost({
     required this.id,
     required this.username,
     required this.avatar,
@@ -9,9 +9,9 @@ class UserPost {
     this.hashtags,
   });
 
-  final int id;
-  final IconData avatar;
-  final String username;
-  final String? textPost;
-  final List<String>? hashtags;
+  int id;
+  IconData avatar;
+  String username;
+  String? textPost;
+  List<String>? hashtags;
 }

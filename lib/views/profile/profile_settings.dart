@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skillmer/model/api/api.dart';
 import 'package:skillmer/shared/constants.dart';
+import 'package:skillmer/shared/models/presigned_object.dart';
 import 'package:skillmer/views/profile/widgets/settings_textfield.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,8 +25,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
     String presignedURLResponse = presignedURL.body;
     Map<String, dynamic> presignedURLObject = jsonDecode(presignedURLResponse);
-    UploadObject uploadObject = UploadObject.fromJson(presignedURLObject);
-    print(uploadObject.path);
+    PresignedObject uploadObject = PresignedObject.fromJson(presignedURLObject);
 
     // Load Asset File for testing purpose, later Image Picker
     File f = await getImageFileFromAssets('images/dany_profile.png');
@@ -150,20 +150,4 @@ class _ProfileSettingsState extends State<ProfileSettings> {
       ),
     );
   }
-}
-
-class UploadObject {
-  final String path;
-  final String imageName;
-
-  UploadObject(this.path, this.imageName);
-
-  UploadObject.fromJson(Map<String, dynamic> json)
-      : path = json['uploadURL'],
-        imageName = json['imageName'];
-
-  Map<String, dynamic> toJson() => {
-        'uploadURL': path,
-        'imageName': imageName,
-      };
 }
