@@ -1,13 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:skillmer/model/api/api.dart';
 import 'package:skillmer/shared/constants.dart';
-import 'package:skillmer/shared/models/presigned_object.dart';
+import 'package:skillmer/shared/models/user_model.dart';
+import 'package:skillmer/view_model/providers/user_provider.dart';
 import 'package:skillmer/views/profile/widgets/settings_textfield.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProfileSettings extends StatefulWidget {
   @override
@@ -15,38 +11,10 @@ class ProfileSettings extends StatefulWidget {
 }
 
 class _ProfileSettingsState extends State<ProfileSettings> {
-  void uploadProfileImage() async {
-    // Get presigned URL to upload File directly to S3
-    http.Response presignedURL = await http.post(
-      Uri.parse(
-        API_URL,
-      ),
-    );
-
-    String presignedURLResponse = presignedURL.body;
-    Map<String, dynamic> presignedURLObject = jsonDecode(presignedURLResponse);
-    PresignedObject uploadObject = PresignedObject.fromJson(presignedURLObject);
-
-    // Load Asset File for testing purpose, later Image Picker
-    File f = await getImageFileFromAssets('images/dany_profile.png');
-
-    // Upload directly to S3
-    await http.put(Uri.parse(uploadObject.path), body: await f.readAsBytes());
-  }
-
-  Future<File> getImageFileFromAssets(String path) async {
-    final byteData = await rootBundle.load('assets/$path');
-
-    final file = await File('${(await getTemporaryDirectory()).path}/$path')
-        .create(recursive: true);
-    await file.writeAsBytes(byteData.buffer
-        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-
-    return file;
-  }
-
   @override
   Widget build(BuildContext context) {
+    final User user = ModalRoute.of(context)!.settings.arguments as User;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -92,8 +60,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   ),
                   onPressed: () {
                     // TODO: Pick Image
-                    // TODO: Upload Profile Image
-                    uploadProfileImage();
+                    context
+                        .read(userProviderAsync.notifier)
+                        .uploadUserProfileImage();
                   },
                 ),
               ],
