@@ -32,7 +32,9 @@ class UserAsyncNotifier extends StateNotifier<AsyncValue<User>> {
     // Upload to S3
     String imageURL = await read(userProvider).uploadProfileImage();
     // Update User Entry in Database
-    int userID = state.data!.value.id;
-    await read(userProvider).updateUserProfileImage(_conn, userID, imageURL);
+    User user =
+        await read(userProvider).updateUserProfileImage(_conn, imageURL);
+
+    state = AsyncData(user);
   }
 }

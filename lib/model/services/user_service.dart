@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skillmer/model/api/api.dart';
+import 'package:skillmer/model/services/amplify_auth_service.dart';
 import 'package:skillmer/shared/models/presigned_object.dart';
 import 'package:skillmer/shared/models/user_model.dart';
 import 'package:http/http.dart' as http;
@@ -12,10 +13,15 @@ import 'package:http/http.dart' as http;
 final userProvider = Provider<UserService>((ref) => UserService());
 
 class UserService {
-  Future<User> loadUser(MySqlConnection conn) async {
-    final query = await conn.query('select * from User;');
+  // Unique identifier for the current User
+  String awsUserID = '';
 
-    // ? Testing with Dummy Data
+  Future<User> loadUser(MySqlConnection conn) async {
+    awsUserID = await AWSAuthRepository.getUserID();
+
+    User currentUser = await getUser(conn);
+
+    // ? Testing with Dummy Data, later switch du currentUser from DB
     User user = User(
       id: 1,
       profileImage:
@@ -54,18 +60,57 @@ class UserService {
     return ('CLOUDFRONT_DOMAIN / uploadObject.imageName');
   }
 
-  Future<void> updateUserProfileImage(
-      MySqlConnection conn, int userID, String profileImageURL) async {
+  Future<User> updateUserProfileImage(
+      MySqlConnection conn, String profileImageURL) async {
     await conn.query(
       'UPDATE User SET profileImage = ? WHERE user_id = ?;',
-      [profileImageURL, userID],
+      [
+        profileImageURL,
+        awsUserID,
+      ],
     );
-    // TODO: Implement Utility get User Method and update User in Provider
+
+    User updatedUser = await getUser(conn);
+
+    return updatedUser;
   }
 
   // #################
   // UTILITY FUNCTIONS
   // #################
+  Future<User> getUser(MySqlConnection conn) async {
+    Results userQuery = await fetchUserFromDB(conn);
+    User user = userFactory(userQuery);
+    return user;
+  }
+
+  Future<Results> fetchUserFromDB(MySqlConnection conn) async {
+    Results query = await conn.query(
+      'select * from User where user_id = ?',
+      [awsUserID],
+    );
+
+    return query;
+  }
+
+  // Create User Object out of the DB Query
+  User userFactory(Results userQuery) {
+    User newUser = {} as User;
+
+    for (var user in userQuery) {
+      newUser = User(
+          id: user.fields['user_id'],
+          username: user.fields['username'].toString(),
+          rank: user.fields['rank'],
+          profileImage: user.fields['profile_image'],
+          postsCount: user.fields['post_count'],
+          followersCount: user.fields['followers_count'],
+          followingCount: user.fields['following_count']);
+    }
+
+    return newUser;
+  }
+
   Future<File> _getImageFileFromAssets(String path) async {
     final byteData = await rootBundle.load('assets/$path');
 

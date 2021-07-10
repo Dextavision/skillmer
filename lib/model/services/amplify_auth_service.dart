@@ -40,4 +40,9 @@ class AWSAuthRepository {
   // Signs out the current user which will emit
   // [User.empty] from the [user] Stream.
   Future<void> logOut() async {}
+
+  static Future<String> getUserID() async {
+    final awsUser = await Amplify.Auth.getCurrentUser();
+    return awsUser.userId;
+  }
 }
