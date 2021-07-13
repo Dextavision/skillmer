@@ -17,13 +17,15 @@ class UserService {
   String awsUserID = '';
 
   Future<User> loadUser(MySqlConnection conn) async {
+    // TODO: Check if User already exit in DB, if Yes fetch if No Create it first
     awsUserID = await AWSAuthRepository.getUserID();
 
-    User currentUser = await getUser(conn);
+    // User currentUser = await getUser(conn);
 
     // ? Testing with Dummy Data, later switch du currentUser from DB
     User user = User(
       id: 1,
+      awsUserID: awsUserID,
       profileImage:
           'https://d2kwbumlh5wa1i.cloudfront.net/190d0995-7479-4f52-badc-0b8483a4a09b.png',
       rank: 'Noob',

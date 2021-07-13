@@ -47,10 +47,16 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               alignment: AlignmentDirectional.center,
               children: [
                 Container(
-                  child: Icon(
-                    Icons.account_circle_sharp,
-                    size: 110.0,
-                    color: Colors.black,
+                  width: 110.0,
+                  height: 120.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        user.profileImage,
+                      ),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
                 IconButton(

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:skillmer/shared/constants.dart';
+import 'package:skillmer/shared/models/user_model.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 import 'package:skillmer/view_model/providers/user_post_provider.dart';
+import 'package:skillmer/view_model/providers/user_provider.dart';
 import 'package:skillmer/views/user_post/user_post_icon_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserPostCard extends StatelessWidget {
+class UserPostCard extends ConsumerWidget {
   final UserPost userPost;
 
   UserPostCard({required this.userPost});
@@ -32,7 +34,9 @@ class UserPostCard extends StatelessWidget {
   void _editUserPost() {}
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    User user = watch(userProviderAsync).data!.value;
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 2.0),
       child: Card(
@@ -52,8 +56,18 @@ class UserPostCard extends StatelessWidget {
                     horizontal: 10.0,
                     vertical: 1.0,
                   ),
-                  child: Icon(
-                    userPost.avatar,
+                  child: Container(
+                    width: 20.0,
+                    height: 25.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          user.profileImage,
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
