@@ -37,8 +37,4 @@ class UserAsyncNotifier extends StateNotifier<AsyncValue<User>> {
 
     state = AsyncData(user);
   }
-
-  String getProfileImage() {
-    return state.data!.value.profileImage;
-  }
 }

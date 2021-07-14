@@ -20,9 +20,8 @@ class UserService {
     // TODO: Check if User already exit in DB, if Yes fetch if No Create it first
     awsUserID = await AWSAuthRepository.getUserID();
 
-    // User currentUser = await getUser(conn);
-
     // ? Testing with Dummy Data, later switch du currentUser from DB
+    // User currentUser = await getUser(conn);
     User user = User(
       id: 1,
       awsUserID: awsUserID,

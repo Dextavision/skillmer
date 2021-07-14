@@ -35,8 +35,6 @@ class UserPostCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    User user = watch(userProviderAsync).data!.value;
-
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 2.0),
       child: Card(
@@ -56,18 +54,28 @@ class UserPostCard extends ConsumerWidget {
                     horizontal: 10.0,
                     vertical: 1.0,
                   ),
-                  child: Container(
-                    width: 20.0,
-                    height: 25.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          user.profileImage,
+                  child: Consumer(
+                    builder: (context, ScopedReader watch, child) {
+                      AsyncValue<User> user = watch(userProviderAsync);
+
+                      return Container(
+                        width: 20.0,
+                        height: 25.0,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: user.when(
+                              data: (user) => NetworkImage(user.profileImage),
+                              loading: () =>
+                                  AssetImage('assets/images/Skillmer.png'),
+                              error: (error, stack) =>
+                                  AssetImage('assets/images/Skillmer.png'),
+                            ),
+                            fit: BoxFit.fill,
+                          ),
                         ),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ),
                 Expanded(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skillmer/shared/models/user_model.dart';
 import 'package:skillmer/view_model/providers/user_provider.dart';
 import 'package:skillmer/views/bottom_bar/bottom_bar.dart';
 import 'package:skillmer/views/home/home.dart';
@@ -30,10 +31,6 @@ class _NavigationState extends State<Navigation> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Is Null when starting app, need to find another way to access it here
-    final String profileImage =
-        context.read(userProviderAsync).data!.value.profileImage;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Skillmer'),
@@ -45,20 +42,27 @@ class _NavigationState extends State<Navigation> {
         ),
         actions: [
           GestureDetector(
-            child: Container(
-              width: 40,
-              height: 20,
-              margin: const EdgeInsets.only(right: 10.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: NetworkImage(
-                    profileImage,
+            child: Consumer(builder: (context, ScopedReader watch, child) {
+              AsyncValue<User> user = watch(userProviderAsync);
+
+              return Container(
+                width: 40,
+                height: 20,
+                margin: const EdgeInsets.only(right: 10.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: user.when(
+                      data: (user) => NetworkImage(user.profileImage),
+                      loading: () => AssetImage('assets/images/Skillmer.png'),
+                      error: (error, stack) =>
+                          AssetImage('assets/images/Skillmer.png'),
+                    ),
+                    fit: BoxFit.fill,
                   ),
-                  fit: BoxFit.fill,
                 ),
-              ),
-            ),
+              );
+            }),
             onTap: () {
               Navigator.pushNamed(context, '/profile');
             },
