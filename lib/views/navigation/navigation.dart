@@ -42,27 +42,29 @@ class _NavigationState extends State<Navigation> {
         ),
         actions: [
           GestureDetector(
-            child: Consumer(builder: (context, ScopedReader watch, child) {
-              AsyncValue<User> user = watch(userProviderAsync);
+            child: Consumer(
+              builder: (context, ScopedReader watch, child) {
+                AsyncValue<User> user = watch(userProviderAsync);
 
-              return Container(
-                width: 40,
-                height: 20,
-                margin: const EdgeInsets.only(right: 10.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: user.when(
-                      data: (user) => NetworkImage(user.profileImage),
-                      loading: () => AssetImage('assets/images/Skillmer.png'),
-                      error: (error, stack) =>
-                          AssetImage('assets/images/Skillmer.png'),
+                return Container(
+                  width: 40,
+                  height: 20,
+                  margin: const EdgeInsets.only(right: 10.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: user.when(
+                        data: (user) => NetworkImage(user.profileImage),
+                        loading: () => AssetImage('assets/images/Skillmer.png'),
+                        error: (error, stack) =>
+                            AssetImage('assets/images/Skillmer.png'),
+                      ),
+                      fit: BoxFit.fill,
                     ),
-                    fit: BoxFit.fill,
                   ),
-                ),
-              );
-            }),
+                );
+              },
+            ),
             onTap: () {
               Navigator.pushNamed(context, '/profile');
             },

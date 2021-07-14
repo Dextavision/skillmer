@@ -81,7 +81,7 @@ class Profile extends ConsumerWidget {
                     ),
                     Container(
                       child: Text(
-                        user.rank,
+                        user.level,
                         style: profileText,
                       ),
                     ),

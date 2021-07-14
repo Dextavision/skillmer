@@ -3,7 +3,7 @@ class User {
     required this.id,
     required this.username,
     required this.profileImage,
-    required this.rank,
+    required this.level,
     this.awsUserID = '',
     this.postsCount = 0,
     this.followersCount = 0,
@@ -14,7 +14,7 @@ class User {
   String awsUserID;
   String username;
   String profileImage;
-  String rank;
+  String level;
   int postsCount;
   int followersCount;
   int followingCount;

@@ -18,6 +18,7 @@ class UserPostService {
       MySqlConnection conn, String postText) async {
     List<UserPost> userPosts = [];
 
+    // TODO: Dynamically grab user id
     // Add new Post
     await conn.query(
       'INSERT INTO POST (user_id,likes,post_text) VALUES (1,0,?);',

@@ -17,24 +17,11 @@ class UserService {
   String awsUserID = '';
 
   Future<User> loadUser(MySqlConnection conn) async {
-    // TODO: Check if User already exit in DB, if Yes fetch if No Create it first
     awsUserID = await AWSAuthRepository.getUserID();
 
-    // ? Testing with Dummy Data, later switch du currentUser from DB
-    // User currentUser = await getUser(conn);
-    User user = User(
-      id: 1,
-      awsUserID: awsUserID,
-      profileImage:
-          'https://d2kwbumlh5wa1i.cloudfront.net/190d0995-7479-4f52-badc-0b8483a4a09b.png',
-      rank: 'Noob',
-      username: 'Dextavision',
-      followersCount: 70,
-      followingCount: 32,
-      postsCount: 1337,
-    );
+    User currentUser = await getUser(conn);
 
-    return user;
+    return currentUser;
   }
 
   Future<String> uploadProfileImage() async {
@@ -80,14 +67,38 @@ class UserService {
   // UTILITY FUNCTIONS
   // #################
   Future<User> getUser(MySqlConnection conn) async {
+    User user;
     Results userQuery = await fetchUserFromDB(conn);
-    User user = userFactory(userQuery);
+
+    if (userQuery.length == 0) {
+      user = await createUser(conn);
+    } else {
+      user = userFactory(userQuery);
+    }
+    return user;
+  }
+
+  Future<User> createUser(MySqlConnection conn) async {
+    await conn.query(
+      'insert into user (username, profile_image, level, posts_count, followers_count, following_count, aws_user_id) VALUES (?, ?, ?, ?, ?, ?, ?);',
+      [
+        'ProGamer1337',
+        'https://d2kwbumlh5wa1i.cloudfront.net/190d0995-7479-4f52-badc-0b8483a4a09b.png',
+        'Noob',
+        0,
+        0,
+        0,
+        awsUserID
+      ],
+    );
+    Results query = await fetchUserFromDB(conn);
+    User user = userFactory(query);
     return user;
   }
 
   Future<Results> fetchUserFromDB(MySqlConnection conn) async {
     Results query = await conn.query(
-      'select * from User where user_id = ?',
+      'select * from User where aws_user_id = ?;',
       [awsUserID],
     );
 
@@ -96,17 +107,18 @@ class UserService {
 
   // Create User Object out of the DB Query
   User userFactory(Results userQuery) {
-    User newUser = {} as User;
+    late User newUser;
 
     for (var user in userQuery) {
       newUser = User(
-          id: user.fields['user_id'],
-          username: user.fields['username'].toString(),
-          rank: user.fields['rank'],
-          profileImage: user.fields['profile_image'],
-          postsCount: user.fields['post_count'],
-          followersCount: user.fields['followers_count'],
-          followingCount: user.fields['following_count']);
+        id: user.fields['user_id'],
+        username: user.fields['username'].toString(),
+        level: user.fields['level'],
+        profileImage: user.fields['profile_image'],
+        postsCount: user.fields['posts_count'],
+        followersCount: user.fields['followers_count'],
+        followingCount: user.fields['following_count'],
+      );
     }
 
     return newUser;
