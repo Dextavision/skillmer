@@ -15,14 +15,13 @@ class UserPostService {
   }
 
   Future<List<UserPost>> addUserPost(
-      MySqlConnection conn, String postText) async {
+      MySqlConnection conn, String postText, int userID) async {
     List<UserPost> userPosts = [];
 
-    // TODO: Dynamically grab user id
     // Add new Post
     await conn.query(
-      'INSERT INTO POST (user_id,likes,post_text) VALUES (1,0,?);',
-      [postText],
+      'INSERT INTO POST (user_id,likes,post_text) VALUES (?,0,?);',
+      [userID, postText],
     );
 
     // Read all posts in Database
