@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:skillmer/model/database.dart';
 import 'package:skillmer/model/services/user_post_service.dart';
-import 'package:skillmer/model/services/user_service.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 import 'package:skillmer/view_model/providers/user_provider.dart';
 
@@ -25,7 +24,7 @@ class PostAsyncNotifier extends StateNotifier<AsyncValue<List<UserPost>>> {
   void _init() async {
     _conn = await read(databaseProvider).initDatabase();
 
-    // TODO: May load only a few here and more dynamically
+    // TODO: May load only a few here and more dynamically maybe with a load more button
     List<UserPost> userPosts =
         await read(userPostProvider).loadUserPosts(_conn);
 
@@ -38,7 +37,7 @@ class PostAsyncNotifier extends StateNotifier<AsyncValue<List<UserPost>>> {
     int userID = read(userProviderAsync).data!.value.id;
 
     List<UserPost> posts =
-        await read(userPostProvider).addUserPost(_conn, postText, userID);
+        await read(userPostProvider).addUserPost(postText, userID);
 
     state = AsyncData(posts);
   }
@@ -46,8 +45,7 @@ class PostAsyncNotifier extends StateNotifier<AsyncValue<List<UserPost>>> {
   void deleteUserPost(int postID) async {
     state = AsyncLoading();
 
-    List<UserPost> posts =
-        await read(userPostProvider).deleteUserPost(_conn, postID);
+    List<UserPost> posts = await read(userPostProvider).deleteUserPost(postID);
 
     state = AsyncData(posts);
   }

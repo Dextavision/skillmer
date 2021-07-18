@@ -1,16 +1,14 @@
-import 'package:flutter/material.dart';
-
 class UserPost {
   UserPost({
     required this.id,
     required this.username,
-    required this.avatar,
+    required this.profileImage,
     this.textPost,
     this.hashtags,
   });
 
   int id;
-  IconData avatar;
+  String profileImage;
   String username;
   String? textPost;
   List<String>? hashtags;

@@ -56,6 +56,7 @@ class UserPostCard extends ConsumerWidget {
                   ),
                   child: Consumer(
                     builder: (context, ScopedReader watch, child) {
+                      // TODO: use the user from the post and not the current one
                       AsyncValue<User> user = watch(userProviderAsync);
 
                       return Container(

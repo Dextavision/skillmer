@@ -14,12 +14,14 @@ final userProvider = Provider<UserService>((ref) => UserService());
 
 class UserService {
   // Unique identifier for the current User
-  String awsUserID = '';
+  String _awsUserID = '';
+  late MySqlConnection _conn;
 
   Future<User> loadUser(MySqlConnection conn) async {
-    awsUserID = await AWSAuthRepository.getUserID();
+    _conn = conn;
+    _awsUserID = await AWSAuthRepository.getUserID();
 
-    User currentUser = await getUser(conn);
+    User currentUser = await getUser();
 
     return currentUser;
   }
@@ -48,17 +50,16 @@ class UserService {
     return ('CLOUDFRONT_DOMAIN / uploadObject.imageName');
   }
 
-  Future<User> updateUserProfileImage(
-      MySqlConnection conn, String profileImageURL) async {
-    await conn.query(
+  Future<User> updateUserProfileImage(String profileImageURL) async {
+    await _conn.query(
       'UPDATE User SET profileImage = ? WHERE user_id = ?;',
       [
         profileImageURL,
-        awsUserID,
+        _awsUserID,
       ],
     );
 
-    User updatedUser = await getUser(conn);
+    User updatedUser = await getUser();
 
     return updatedUser;
   }
@@ -66,20 +67,20 @@ class UserService {
   // #################
   // UTILITY FUNCTIONS
   // #################
-  Future<User> getUser(MySqlConnection conn) async {
+  Future<User> getUser() async {
     User user;
-    Results userQuery = await fetchUserFromDB(conn);
+    Results userQuery = await fetchUserFromDB();
 
     if (userQuery.length == 0) {
-      user = await createUser(conn);
+      user = await createUser();
     } else {
       user = userFactory(userQuery);
     }
     return user;
   }
 
-  Future<User> createUser(MySqlConnection conn) async {
-    await conn.query(
+  Future<User> createUser() async {
+    await _conn.query(
       'insert into user (username, profile_image, level, posts_count, followers_count, following_count, aws_user_id) VALUES (?, ?, ?, ?, ?, ?, ?);',
       [
         'ProGamer1337',
@@ -88,25 +89,25 @@ class UserService {
         0,
         0,
         0,
-        awsUserID
+        _awsUserID
       ],
     );
-    Results query = await fetchUserFromDB(conn);
+    Results query = await fetchUserFromDB();
     User user = userFactory(query);
     return user;
   }
 
-  Future<Results> fetchUserFromDB(MySqlConnection conn) async {
-    Results query = await conn.query(
+  Future<Results> fetchUserFromDB() async {
+    Results query = await _conn.query(
       'select * from User where aws_user_id = ?;',
-      [awsUserID],
+      [_awsUserID],
     );
 
     return query;
   }
 
   // Create User Object out of the DB Query
-  User userFactory(Results userQuery) {
+  static User userFactory(Results userQuery) {
     late User newUser;
 
     for (var user in userQuery) {
