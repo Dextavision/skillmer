@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:skillmer/model/services/user_service.dart';
@@ -61,14 +60,26 @@ class UserPostService {
     List<UserPost> userPosts = [];
 
     for (var userPost in userPostQuery) {
+      // Get User from Post
       int userID = userPost.fields['user_id'];
       User user = await _getUserFromPost(userID);
-      userPosts.add(new UserPost(
-        id: userPost.fields['post_id'],
-        username: user.username,
-        profileImage: user.profileImage,
-        textPost: userPost.fields['post_text'].toString(),
-      ));
+
+      // Get Hashtags to Posts
+      List<String> hashtags = [];
+      int postID = userPost.fields['post_id'];
+      hashtags = await _getHashtagsFromPost(postID);
+
+      userPosts.add(
+        new UserPost(
+          id: postID,
+          username: user.username,
+          profileImage: user.profileImage,
+          textPost: userPost.fields['post_text'].toString(),
+          postImage: userPost.fields['post_image'].toString(),
+          likes: userPost.fields['likes'] ?? 0,
+          hashtags: hashtags,
+        ),
+      );
     }
 
     return userPosts;
@@ -83,5 +94,20 @@ class UserPostService {
     User user = UserService.userFactory(query);
 
     return user;
+  }
+
+  Future<List<String>> _getHashtagsFromPost(int postID) async {
+    List<String> hashtags = [];
+
+    Results query = await _conn.query(
+      'Select * FROM PostHashtag where post_id = ?',
+      [postID],
+    );
+
+    for (var hashtag in query) {
+      hashtags.add(hashtag.fields['hashtag']);
+    }
+
+    return hashtags;
   }
 }

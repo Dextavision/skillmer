@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skillmer/shared/constants.dart';
-import 'package:skillmer/shared/models/user_model.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 import 'package:skillmer/view_model/providers/user_post_provider.dart';
-import 'package:skillmer/view_model/providers/user_provider.dart';
 import 'package:skillmer/views/user_post/user_post_icon_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -54,29 +52,18 @@ class UserPostCard extends ConsumerWidget {
                     horizontal: 10.0,
                     vertical: 1.0,
                   ),
-                  child: Consumer(
-                    builder: (context, ScopedReader watch, child) {
-                      // TODO: use the user from the post and not the current one
-                      AsyncValue<User> user = watch(userProviderAsync);
-
-                      return Container(
-                        width: 20.0,
-                        height: 25.0,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: user.when(
-                              data: (user) => NetworkImage(user.profileImage),
-                              loading: () =>
-                                  AssetImage('assets/images/Skillmer.png'),
-                              error: (error, stack) =>
-                                  AssetImage('assets/images/Skillmer.png'),
-                            ),
-                            fit: BoxFit.fill,
-                          ),
+                  child: Container(
+                    width: 20.0,
+                    height: 25.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          userPost.profileImage,
                         ),
-                      );
-                    },
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
