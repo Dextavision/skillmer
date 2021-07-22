@@ -1,6 +1,7 @@
 class UserPost {
   UserPost({
     required this.id,
+    required this.userID,
     required this.username,
     required this.profileImage,
     this.likes = 0,
@@ -10,6 +11,7 @@ class UserPost {
   });
 
   int id;
+  int userID;
   String profileImage;
   String username;
   int likes;

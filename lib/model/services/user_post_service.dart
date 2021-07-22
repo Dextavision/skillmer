@@ -72,6 +72,7 @@ class UserPostService {
       userPosts.add(
         new UserPost(
           id: postID,
+          userID: userID,
           username: user.username,
           profileImage: user.profileImage,
           textPost: userPost.fields['post_text'].toString(),
