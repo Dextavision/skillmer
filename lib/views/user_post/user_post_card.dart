@@ -142,12 +142,12 @@ class UserPostCard extends ConsumerWidget {
               child: Divider(
                 color: accentColor,
               ),
-              visible: userPost.hashtags != null,
+              visible: userPost.hashtags!.length > 0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                userPost.hashtags != null
+                userPost.hashtags!.length > 0
                     ? Text(
                         userPost.hashtags!.join(","),
                         style: TextStyle(
@@ -160,7 +160,9 @@ class UserPostCard extends ConsumerWidget {
             Divider(
               color: accentColor,
             ),
-            UserPostIconList()
+            UserPostIconList(
+              userPost: userPost,
+            )
           ],
         ),
       ),

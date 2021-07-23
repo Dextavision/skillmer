@@ -10,7 +10,9 @@ class UserPostList extends ConsumerWidget {
     final AsyncValue<List<UserPost>> userPostItems = watch(postProviderAsync);
 
     return userPostItems.when(
-      loading: () => CircularProgressIndicator(),
+      loading: () => Center(
+        child: CircularProgressIndicator(),
+      ),
       error: (error, stack) => Text('Oops, something unexpected happened'),
       data: (userPost) => ListView.builder(
         itemCount: userPost.length,
