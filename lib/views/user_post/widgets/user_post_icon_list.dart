@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:skillmer/shared/models/user_model.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 import 'package:skillmer/view_model/providers/user_provider.dart';
 
+// TODO: Implement State to see which Posts are skilled and or bookmarked by the current user, maybe new Provider for Skilled and Bookmarked State
 class UserPostIconList extends ConsumerWidget {
   final UserPost userPost;
 
@@ -11,8 +11,6 @@ class UserPostIconList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final AsyncValue<User> user = watch(userProviderAsync);
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -34,7 +32,9 @@ class UserPostIconList extends ConsumerWidget {
         ),
         IconButton(
           icon: Icon(Icons.plus_one_outlined),
-          onPressed: () {},
+          onPressed: () {
+            context.read(userProviderAsync.notifier).likePost(userPost.id);
+          },
           iconSize: 20.0,
         ),
       ],

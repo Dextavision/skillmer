@@ -14,14 +14,17 @@ final userProvider = Provider<UserService>((ref) => UserService());
 
 class UserService {
   // Unique identifier for the current User
-  String _awsUserID = '';
   late MySqlConnection _conn;
+  String _awsUserID = '';
+  late User _currentUser;
 
   Future<User> loadUser(MySqlConnection conn) async {
     _conn = conn;
     _awsUserID = await AWSAuthRepository.getUserID();
 
     User currentUser = await getUser();
+
+    _currentUser = currentUser;
 
     return currentUser;
   }
@@ -64,6 +67,16 @@ class UserService {
     return updatedUser;
   }
 
+  Future<void> likePost(int postID) async {
+    await _conn.query(
+      'INSERT into UserSkilledPost (user_id, post_id) VALUES (?, ?)',
+      [
+        _currentUser.id,
+        postID,
+      ],
+    );
+  }
+
   // #################
   // UTILITY FUNCTIONS
   // #################
@@ -81,7 +94,7 @@ class UserService {
 
   Future<User> createUser() async {
     await _conn.query(
-      'insert into user (username, profile_image, level, posts_count, followers_count, following_count, aws_user_id) VALUES (?, ?, ?, ?, ?, ?, ?);',
+      'insert into User (username, profile_image, level, posts_count, followers_count, following_count, aws_user_id) VALUES (?, ?, ?, ?, ?, ?, ?);',
       [
         'ProGamer1337',
         'https://d2kwbumlh5wa1i.cloudfront.net/190d0995-7479-4f52-badc-0b8483a4a09b.png',
