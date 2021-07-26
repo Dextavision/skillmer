@@ -22,8 +22,8 @@ class User {
   String username;
   String profileImage;
   String level;
-  List<UserPost> bookmarkedPosts;
-  List<UserPost> skilledPosts;
+  List<int> bookmarkedPosts;
+  List<int> skilledPosts;
   List<Game> favouriteGames;
   List<String> followedHashtags;
   int postsCount;

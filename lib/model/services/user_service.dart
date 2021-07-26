@@ -67,14 +67,37 @@ class UserService {
     return updatedUser;
   }
 
-  Future<void> likePost(int postID) async {
-    await _conn.query(
-      'INSERT into UserSkilledPost (user_id, post_id) VALUES (?, ?)',
-      [
-        _currentUser.id,
-        postID,
-      ],
+  Future<User> likePost(int postID) async {
+    bool isAlreadyLiked = false;
+
+    Results query = await _conn.query(
+      'SELECT * from UserSkilledPost where user_id = ? and post_id = ?',
+      [_currentUser.id, postID],
     );
+
+    isAlreadyLiked = query.length == 1 ? true : false;
+
+    if (isAlreadyLiked) {
+      await _conn.query(
+        'DELETE from UserSkilledPost where user_id = ? and post_id = ?',
+        [
+          _currentUser.id,
+          postID,
+        ],
+      );
+    } else {
+      await _conn.query(
+        'INSERT into UserSkilledPost (user_id, post_id) VALUES (?, ?)',
+        [
+          _currentUser.id,
+          postID,
+        ],
+      );
+    }
+
+    _currentUser.skilledPosts = await _getSkilledPostsFromUser(_currentUser.id);
+
+    return _currentUser;
   }
 
   // #################
@@ -88,7 +111,11 @@ class UserService {
       user = await createUser();
     } else {
       user = userFactory(userQuery);
+      // Get Bookmarked and Skilled Posts from the current User
+      user.bookmarkedPosts = await _getBookmarkedPostsFromUser(user.id);
+      user.skilledPosts = await _getSkilledPostsFromUser(user.id);
     }
+
     return user;
   }
 
@@ -147,5 +174,39 @@ class UserService {
         .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
 
     return file;
+  }
+
+  Future<List<int>> _getBookmarkedPostsFromUser(int userID) async {
+    List<int> bookmarkedPosts = [];
+
+    Results query = await _conn.query(
+      'Select * from UserBookmarkedPost where user_id = ?',
+      [
+        userID,
+      ],
+    );
+
+    for (var bookmark in query) {
+      bookmarkedPosts.add(bookmark.fields['post_id']);
+    }
+
+    return bookmarkedPosts;
+  }
+
+  Future<List<int>> _getSkilledPostsFromUser(int userID) async {
+    List<int> skilledPosts = [];
+
+    Results query = await _conn.query(
+      'Select * from UserSkilledPost where user_id = ?',
+      [
+        userID,
+      ],
+    );
+
+    for (var skilled in query) {
+      skilledPosts.add(skilled.fields['post_id']);
+    }
+
+    return skilledPosts;
   }
 }

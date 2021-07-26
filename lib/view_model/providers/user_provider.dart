@@ -38,6 +38,8 @@ class UserAsyncNotifier extends StateNotifier<AsyncValue<User>> {
   }
 
   void likePost(int postID) async {
-    await read(userProvider).likePost(postID);
+    User user = await read(userProvider).likePost(postID);
+
+    state = AsyncData(user);
   }
 }
