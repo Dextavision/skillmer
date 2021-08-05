@@ -5,7 +5,6 @@ import 'package:skillmer/shared/models/user_model.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 import 'package:skillmer/view_model/providers/user_provider.dart';
 
-// TODO: Implement State to see which Posts are skilled and or bookmarked by the current user, maybe new Provider for Skilled and Bookmarked State
 class UserPostIconList extends ConsumerWidget {
   final UserPost userPost;
 

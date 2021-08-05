@@ -77,6 +77,7 @@ class UserService {
 
     isAlreadyLiked = query.length == 1 ? true : false;
 
+    // If already liked then dislike, otherwise like the post
     if (isAlreadyLiked) {
       await _conn.query(
         'DELETE from UserSkilledPost where user_id = ? and post_id = ?',
@@ -114,6 +115,8 @@ class UserService {
       // Get Bookmarked and Skilled Posts from the current User
       user.bookmarkedPosts = await _getBookmarkedPostsFromUser(user.id);
       user.skilledPosts = await _getSkilledPostsFromUser(user.id);
+      // Get Count Fields
+      user.postsCount = await _getPostsCount(user.id);
     }
 
     return user;
@@ -208,5 +211,20 @@ class UserService {
     }
 
     return skilledPosts;
+  }
+
+  Future<int> _getPostsCount(int userID) async {
+    int allPostsFromUser = 0;
+
+    Results query = await _conn.query(
+      'Select * from Post where user_id = ?',
+      [
+        userID,
+      ],
+    );
+
+    allPostsFromUser = query.length;
+
+    return allPostsFromUser;
   }
 }
