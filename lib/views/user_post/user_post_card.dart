@@ -26,8 +26,21 @@ class UserPostCard extends ConsumerWidget {
     }
   }
 
-  void _deleteUserPost(BuildContext context) {
+  void _deleteUserPost(BuildContext context) async {
     context.read(postProviderAsync.notifier).deleteUserPost(userPost.id);
+    context.read(userProviderAsync).data!.value.postsCount--;
+
+    final snackBar = SnackBar(
+      content: Text(
+        'Successfully deleted Item!',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      backgroundColor: accentColor,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void _editUserPost() {}
