@@ -42,4 +42,10 @@ class UserAsyncNotifier extends StateNotifier<AsyncValue<User>> {
 
     state = AsyncData(user);
   }
+
+  void bookmarkPost(int postID) async {
+    User user = await read(userProvider).bookmarkPost(postID);
+
+    state = AsyncData(user);
+  }
 }

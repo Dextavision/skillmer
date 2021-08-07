@@ -101,6 +101,41 @@ class UserService {
     return _currentUser;
   }
 
+  Future<User> bookmarkPost(int postID) async {
+    bool isAlreadyBookmarked = false;
+
+    Results query = await _conn.query(
+      'SELECT * from UserBookmarkedPost where user_id = ? and post_id = ?',
+      [_currentUser.id, postID],
+    );
+
+    isAlreadyBookmarked = query.length == 1 ? true : false;
+
+    // If already liked then dislike, otherwise like the post
+    if (isAlreadyBookmarked) {
+      await _conn.query(
+        'DELETE from UserBookmarkedPost where user_id = ? and post_id = ?',
+        [
+          _currentUser.id,
+          postID,
+        ],
+      );
+    } else {
+      await _conn.query(
+        'INSERT into UserBookmarkedPost (user_id, post_id) VALUES (?, ?)',
+        [
+          _currentUser.id,
+          postID,
+        ],
+      );
+    }
+
+    _currentUser.bookmarkedPosts =
+        await _getBookmarkedPostsFromUser(_currentUser.id);
+
+    return _currentUser;
+  }
+
   // #################
   // UTILITY FUNCTIONS
   // #################

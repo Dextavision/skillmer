@@ -27,8 +27,15 @@ class UserPostIconList extends ConsumerWidget {
           ),
           IconButton(
             icon: Icon(Icons.bookmark_outline),
-            onPressed: () {},
+            onPressed: () {
+              context
+                  .read(userProviderAsync.notifier)
+                  .bookmarkPost(userPost.id);
+            },
             iconSize: 20.0,
+            color: user.bookmarkedPosts.contains(userPost.id)
+                ? accentColor
+                : Colors.white,
           ),
           IconButton(
             icon: Icon(Icons.messenger_outline_sharp),
