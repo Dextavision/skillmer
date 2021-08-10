@@ -39,7 +39,7 @@ class UserPostService {
   Future<List<UserPost>> deleteUserPost(int postID) async {
     List<UserPost> userPosts = [];
 
-    // Add new Post
+    // Delete Post
     await _conn.query(
       'DELETE FROM Post where post_id = ?',
       [postID],

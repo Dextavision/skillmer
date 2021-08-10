@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:skillmer/shared/constants.dart';
+import 'package:skillmer/shared/models/user_model.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 import 'package:skillmer/view_model/providers/user_post_provider.dart';
 import 'package:skillmer/view_model/providers/user_provider.dart';
+import 'package:skillmer/views/login/login.dart';
 import 'package:skillmer/views/user_post/widgets/user_post_icon_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserPostCard extends ConsumerWidget {
+class UserPostCard extends StatelessWidget {
   final UserPost userPost;
 
   UserPostCard({required this.userPost});
@@ -46,10 +48,7 @@ class UserPostCard extends ConsumerWidget {
   void _editUserPost() {}
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final bool isOwnPost =
-        context.read(userProviderAsync).data!.value.id == userPost.userID;
-
+  Widget build(BuildContext context) {
     Color getPostLevelColor() {
       bool kek = userPost.likes < 20;
       bool rookie = userPost.likes >= 20 && userPost.likes < 100;
@@ -108,28 +107,40 @@ class UserPostCard extends ConsumerWidget {
                     userPost.username,
                   ),
                 ),
-                Visibility(
-                  child: PopupMenuButton<int>(
-                    color: accentColor,
-                    itemBuilder: (context) => [
-                      PopupMenuItem<int>(
-                        value: 0,
-                        child: Text("Delete"),
+                Consumer(builder: (context, ref, child) {
+                  AsyncValue<User> currentUser = ref(userProviderAsync);
+                  return currentUser.when(data: (user) {
+                    if (user == null) {
+                      return LoginPage();
+                    }
+                    return Visibility(
+                      child: PopupMenuButton<int>(
+                        color: accentColor,
+                        itemBuilder: (context) => [
+                          PopupMenuItem<int>(
+                            value: 0,
+                            child: Text("Delete"),
+                          ),
+                          PopupMenuItem<int>(
+                            value: 1,
+                            child: Text("Edit"),
+                          ),
+                        ],
+                        onSelected: (item) => {
+                          _selectedPopupMenu(context, item),
+                        },
                       ),
-                      PopupMenuItem<int>(
-                        value: 1,
-                        child: Text("Edit"),
-                      ),
-                    ],
-                    onSelected: (item) => {
-                      _selectedPopupMenu(context, item),
-                    },
-                  ),
-                  visible: isOwnPost,
-                  maintainSize: true,
-                  maintainState: true,
-                  maintainAnimation: true,
-                ),
+                      visible: user.id == userPost.userID,
+                      maintainSize: true,
+                      maintainState: true,
+                      maintainAnimation: true,
+                    );
+                  }, loading: () {
+                    return CircularProgressIndicator();
+                  }, error: (e, st) {
+                    return Text('ERROR');
+                  });
+                }),
               ],
             ),
             Divider(
