@@ -9,6 +9,8 @@ class User {
     required this.level,
     this.bookmarkedPosts = const [],
     this.skilledPosts = const [],
+    this.skilledPostsList = const [],
+    this.bookmarkedPostsList = const [],
     this.favouriteGames = const [],
     this.followedHashtags = const [],
     this.awsUserID = '',
@@ -24,6 +26,8 @@ class User {
   String level;
   List<int> bookmarkedPosts;
   List<int> skilledPosts;
+  List<UserPost> skilledPostsList;
+  List<UserPost> bookmarkedPostsList;
   List<Game> favouriteGames;
   List<String> followedHashtags;
   int postsCount;

@@ -6,6 +6,7 @@ import 'package:mysql1/mysql1.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skillmer/model/api/api.dart';
 import 'package:skillmer/model/services/amplify_auth_service.dart';
+import 'package:skillmer/model/services/user_post_service.dart';
 import 'package:skillmer/shared/models/presigned_object.dart';
 import 'package:skillmer/shared/models/user_model.dart';
 import 'package:http/http.dart' as http;
@@ -17,10 +18,12 @@ class UserService {
   late MySqlConnection _conn;
   String _awsUserID = '';
   late User _currentUser;
+  late UserPostService userPostService;
 
   Future<User> loadUser(MySqlConnection conn) async {
     _conn = conn;
     _awsUserID = await AWSAuthRepository.getUserID();
+    userPostService = UserPostService();
 
     User currentUser = await getUser();
 
@@ -97,6 +100,8 @@ class UserService {
     }
 
     _currentUser.skilledPosts = await _getSkilledPostsFromUser(_currentUser.id);
+    _currentUser.skilledPostsList = await userPostService
+        .getSkilledPostsFromUser(_currentUser.skilledPosts, _conn);
 
     return _currentUser;
   }
@@ -133,6 +138,9 @@ class UserService {
     _currentUser.bookmarkedPosts =
         await _getBookmarkedPostsFromUser(_currentUser.id);
 
+    _currentUser.bookmarkedPostsList = await userPostService
+        .getBookmarkedPostsFromUser(_currentUser.bookmarkedPosts, _conn);
+
     return _currentUser;
   }
 
@@ -149,7 +157,13 @@ class UserService {
       user = userFactory(userQuery);
       // Get Bookmarked and Skilled Posts from the current User
       user.bookmarkedPosts = await _getBookmarkedPostsFromUser(user.id);
+      user.bookmarkedPostsList = await userPostService
+          .getBookmarkedPostsFromUser(user.bookmarkedPosts, _conn);
+
       user.skilledPosts = await _getSkilledPostsFromUser(user.id);
+      user.skilledPostsList = await userPostService.getSkilledPostsFromUser(
+          user.skilledPosts, _conn);
+
       // Get Count Fields
       user.postsCount = await _getPostsCount(user.id);
     }

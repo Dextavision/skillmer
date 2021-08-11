@@ -56,6 +56,42 @@ class UserPostService {
   // UTILITY FUNCTIONS
   // #################
 
+  Future<List<UserPost>> getSkilledPostsFromUser(
+      List<int> postIDs, MySqlConnection conn) async {
+    List<UserPost> skilledPosts = [];
+    _conn = conn;
+
+    await Future.forEach(postIDs, ((id) async {
+      Results query = await _conn.query(
+        'SELECT * FROM Post where post_id = ?',
+        [id],
+      );
+
+      UserPost skilledPost = (await _fillUserPostList(query)).first;
+      skilledPosts.add(skilledPost);
+    }));
+
+    return skilledPosts;
+  }
+
+  Future<List<UserPost>> getBookmarkedPostsFromUser(
+      List<int> postIDs, MySqlConnection conn) async {
+    List<UserPost> bookmarkedPosts = [];
+    _conn = conn;
+
+    await Future.forEach(postIDs, ((id) async {
+      Results query = await _conn.query(
+        'SELECT * FROM Post where post_id = ?',
+        [id],
+      );
+
+      UserPost bookmarkedPost = (await _fillUserPostList(query)).first;
+      bookmarkedPosts.add(bookmarkedPost);
+    }));
+
+    return bookmarkedPosts;
+  }
+
   Future<List<UserPost>> _fillUserPostList(Results userPostQuery) async {
     List<UserPost> userPosts = [];
 

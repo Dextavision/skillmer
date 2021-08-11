@@ -110,9 +110,6 @@ class UserPostCard extends StatelessWidget {
                 Consumer(builder: (context, ref, child) {
                   AsyncValue<User> currentUser = ref(userProviderAsync);
                   return currentUser.when(data: (user) {
-                    if (user == null) {
-                      return LoginPage();
-                    }
                     return Visibility(
                       child: PopupMenuButton<int>(
                         color: accentColor,

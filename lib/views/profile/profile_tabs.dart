@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:skillmer/views/profile/widgets/bookmarked_posts.dart';
+import 'package:skillmer/views/profile/widgets/skilled_posts.dart';
 import 'package:skillmer/views/user_post/user_post_list.dart';
 
 class ProfileTabs extends StatelessWidget {
@@ -31,12 +33,8 @@ class ProfileTabs extends StatelessWidget {
         body: TabBarView(
           children: [
             UserPostList(),
-            Text(
-              'TODO: Posts user gave XP to',
-            ),
-            Text(
-              'TODO: Posts user bookmarked',
-            ),
+            SkilledPosts(),
+            BookmarkedPosts(),
           ],
         ),
       ),
