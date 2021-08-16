@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skillmer/shared/constants.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skillmer/view_model/providers/user_post_provider.dart';
+import 'package:skillmer/view_model/providers/user_provider.dart';
 
 class AddPost extends StatefulWidget {
   @override
@@ -10,6 +11,30 @@ class AddPost extends StatefulWidget {
 
 class _AddPostState extends State<AddPost> {
   TextEditingController postTextController = new TextEditingController();
+
+  void addUserPost(BuildContext context) {
+    context
+        .read(postProviderAsync.notifier)
+        .addUserPost(postTextController.text);
+    context.read(userProviderAsync).data!.value.postsCount++;
+
+    Navigator.pushNamed(
+      context,
+      '/',
+    );
+
+    final snackBar = SnackBar(
+      content: Text(
+        'Successfully added Item!',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      backgroundColor: accentColor,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +81,7 @@ class _AddPostState extends State<AddPost> {
               IconButton(
                 icon: Icon(Icons.control_point),
                 onPressed: () {
-                  context
-                      .read(postProviderAsync.notifier)
-                      .addUserPost(postTextController.text);
+                  addUserPost(context);
                 },
                 iconSize: 40.0,
               )
