@@ -39,7 +39,9 @@ class UserPostIconList extends ConsumerWidget {
           ),
           IconButton(
             icon: Icon(Icons.messenger_outline_sharp),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/comments', arguments: userPost);
+            },
             color: Colors.white,
             iconSize: 20.0,
           ),

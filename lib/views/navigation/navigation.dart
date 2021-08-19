@@ -4,7 +4,6 @@ import 'package:skillmer/view_model/providers/user_provider.dart';
 import 'package:skillmer/views/bottom_bar/bottom_bar.dart';
 import 'package:skillmer/views/home/home.dart';
 import 'package:skillmer/views/news/news.dart';
-import 'package:skillmer/views/search/search.dart';
 import 'package:skillmer/views/user_post/add_post.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,7 +23,7 @@ class _NavigationState extends State<Navigation> {
 
   final List<Widget> _skillmerScreens = <Widget>[
     Home(),
-    Search(),
+    // Search(),
     AddPost(),
     News()
   ];

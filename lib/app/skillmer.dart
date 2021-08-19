@@ -3,11 +3,13 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skillmer/app/theme.dart';
+import 'package:skillmer/shared/models/user_post_model.dart';
 import 'package:skillmer/view_model/providers/authentication_provider.dart';
 import 'package:skillmer/views/login/login.dart';
 import 'package:skillmer/views/navigation/navigation.dart';
 import 'package:skillmer/views/profile/profile.dart';
 import 'package:skillmer/views/profile/profile_settings.dart';
+import 'package:skillmer/views/user_post/comment_section.dart';
 import '../amplifyconfiguration.dart';
 
 class Skillmer extends StatefulWidget {
@@ -55,14 +57,16 @@ class _SkillmerState extends State<Skillmer> {
               }, loading: () {
                 return Text('Loading');
               }, error: (e, st) {
+                // TODO: Error Screen
                 return Text('ERROR');
               });
             })
           : Text('Amplify not yet configured'),
       routes: {
-        // '/': (context) => Navigation(),
         '/profile': (context) => Profile(),
         '/profile-settings': (context) => ProfileSettings(),
+        '/comments': (context) => CommentSection(
+            ModalRoute.of(context)?.settings.arguments as UserPost),
       },
     );
   }

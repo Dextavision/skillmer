@@ -4,7 +4,6 @@ import 'package:skillmer/shared/models/user_model.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
 import 'package:skillmer/view_model/providers/user_post_provider.dart';
 import 'package:skillmer/view_model/providers/user_provider.dart';
-import 'package:skillmer/views/login/login.dart';
 import 'package:skillmer/views/user_post/widgets/user_post_icon_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
