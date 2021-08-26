@@ -14,43 +14,30 @@ class Profile extends ConsumerWidget {
       loading: () => CircularProgressIndicator(),
       error: (error, stack) => Text('Oops, something unexpected happened'),
       data: (user) => Scaffold(
+        appBar: AppBar(
+          title: Text('Profile'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/profile-settings',
+                  arguments: user,
+                );
+              },
+            ),
+          ],
+        ),
         body: SafeArea(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        "Profile",
-                        style: profileText,
-                      ),
-                    ),
-                    flex: 3,
-                  ),
-                  Expanded(
-                    child: IconButton(
-                      icon: Icon(Icons.settings),
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/profile-settings',
-                          arguments: user,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
               Container(
                 width: 90.0,
                 height: 100.0,

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skillmer/shared/constants.dart';
 import 'package:skillmer/shared/utilitys.dart';
-import 'package:skillmer/views/user_post/widgets/comments_comment.dart';
 
-class Comment extends ConsumerWidget {
-  const Comment();
+class CommentsComment extends StatelessWidget {
+  const CommentsComment();
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 35.0),
       child: Card(
         elevation: 0,
         color: scaffoldBackgroundColor,
@@ -94,7 +92,7 @@ class Comment extends ConsumerWidget {
                   ),
                   child: TextButton(
                     child: Text(
-                      'Show Answers (42)',
+                      'Show Answers (2)',
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -110,24 +108,6 @@ class Comment extends ConsumerWidget {
                   ),
                 ),
               ],
-            ),
-            Visibility(
-              visible: true,
-              child: SingleChildScrollView(
-                physics: ScrollPhysics(),
-                child: Column(
-                  children: <Widget>[
-                    ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 3,
-                      itemBuilder: (context, index) {
-                        return CommentsComment();
-                      },
-                    ),
-                  ],
-                ),
-              ),
             ),
           ],
         ),

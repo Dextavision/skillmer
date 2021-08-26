@@ -16,33 +16,18 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     final User user = ModalRoute.of(context)!.settings.arguments as User;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile Settings'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      "Profile Settings",
-                      style: profileText,
-                    ),
-                  ),
-                  flex: 3,
-                ),
-                Spacer(
-                  flex: 1,
-                ),
-              ],
-            ),
             Stack(
               alignment: AlignmentDirectional.center,
               children: [
