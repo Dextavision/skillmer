@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skillmer/shared/models/user_post_model.dart';
-import 'package:skillmer/views/user_post/widgets/comment.dart';
+import 'package:skillmer/views/user_post/widgets/post_comment.dart';
 
 class CommentSection extends StatelessWidget {
   final UserPost userPost;
@@ -25,7 +25,7 @@ class CommentSection extends StatelessWidget {
           return Row(
             children: [
               Expanded(
-                child: Comment(),
+                child: PostComment(),
               ),
             ],
           );

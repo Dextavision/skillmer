@@ -13,6 +13,21 @@ class _AddPostState extends State<AddPost> {
   TextEditingController postTextController = new TextEditingController();
 
   void addUserPost(BuildContext context) {
+    if (postTextController.text.length == 0) {
+      final snackBar = SnackBar(
+        content: Text(
+          'Ups! No content was provided!',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: accentColor,
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }
+
     context
         .read(postProviderAsync.notifier)
         .addUserPost(postTextController.text);

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skillmer/shared/constants.dart';
 import 'package:skillmer/shared/utilitys.dart';
-import 'package:skillmer/views/user_post/widgets/comments_comment.dart';
 
-class Comment extends ConsumerWidget {
-  const Comment();
+class PostComment extends StatelessWidget {
+  const PostComment({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Card(
@@ -44,17 +42,15 @@ class Comment extends ConsumerWidget {
                 ),
                 Flexible(
                   child: RichText(
-                    text: new TextSpan(
-                      // Note: Styles for TextSpans must be explicitly defined.
-                      // Child text spans will inherit styles from parent
-                      style: new TextStyle(
+                    text: TextSpan(
+                      style: TextStyle(
                         fontSize: 14.0,
                       ),
                       children: <TextSpan>[
-                        new TextSpan(
+                        TextSpan(
                             text: 'Dextavision ',
                             style: new TextStyle(fontWeight: FontWeight.bold)),
-                        new TextSpan(
+                        TextSpan(
                           text: 'Voll der mega krasse Comment, beste App ever!',
                         ),
                       ],
@@ -112,7 +108,7 @@ class Comment extends ConsumerWidget {
               ],
             ),
             Visibility(
-              visible: true,
+              visible: false,
               child: SingleChildScrollView(
                 physics: ScrollPhysics(),
                 child: Column(
@@ -120,9 +116,9 @@ class Comment extends ConsumerWidget {
                     ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 3,
+                      itemCount: 2,
                       itemBuilder: (context, index) {
-                        return CommentsComment();
+                        return PostComment();
                       },
                     ),
                   ],
