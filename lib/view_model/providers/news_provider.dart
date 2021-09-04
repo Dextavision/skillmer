@@ -11,5 +11,12 @@ final newsProviderAsync = FutureProvider<List<RssItem>>((ref) async {
   var response =
       await client.get(Uri.parse('https://www.gamestar.de/news/rss/news.rss'));
 
-  return RssFeed.parse(response.body).items!;
+  DateTime currDate = new DateTime.now();
+  DateTime compareDate =
+      new DateTime(currDate.year, currDate.month - 2, currDate.day);
+
+  return RssFeed.parse(response.body)
+      .items!
+      .where((element) => element.pubDate!.month > compareDate.month)
+      .toList();
 });

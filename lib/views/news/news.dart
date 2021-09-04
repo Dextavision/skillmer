@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skillmer/view_model/providers/news_provider.dart';
 import 'package:webfeed/webfeed.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class News extends ConsumerWidget {
   @override
@@ -25,7 +26,12 @@ class News extends ConsumerWidget {
             title: Text(
               news[index].title!,
             ),
-            onTap: () {},
+            onTap: () async {
+              String _url = news[index].link!;
+              await canLaunch(_url)
+                  ? await launch(_url)
+                  : throw 'Could not launch $_url';
+            },
           );
         },
       ),
