@@ -12,3 +12,8 @@ const TextStyle profileNumbers = TextStyle(
   fontSize: 20.0,
   fontWeight: FontWeight.bold,
 );
+
+const TextStyle newsHeader = TextStyle(
+  fontSize: 30.0,
+  fontWeight: FontWeight.bold,
+);

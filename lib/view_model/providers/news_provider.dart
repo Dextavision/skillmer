@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 // ###############################
 // NEWS PROVIDER
 // ###############################
-final newsProviderAsync = FutureProvider<List<RssItem>>((ref) async {
+final newsProviderAsync =
+    FutureProvider.family<List<RssItem>, String>((ref, url) async {
   final client = http.Client();
 
-  var response =
-      await client.get(Uri.parse('https://www.gamestar.de/news/rss/news.rss'));
+  var response = await client.get(Uri.parse(url));
 
   DateTime currDate = new DateTime.now();
   DateTime compareDate =

@@ -1,40 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:skillmer/view_model/providers/news_provider.dart';
-import 'package:webfeed/webfeed.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:skillmer/shared/constants.dart';
+import 'package:skillmer/views/news/widgets/four_players_news.dart';
+import 'package:skillmer/views/news/widgets/gamepro_news.dart';
+import 'package:skillmer/views/news/widgets/gamestar_news.dart';
+import 'package:skillmer/views/news/widgets/ign_news.dart';
 
-class News extends ConsumerWidget {
+class News extends StatelessWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final AsyncValue<List<RssItem>> newsFeed = watch(newsProviderAsync);
-
-    return newsFeed.when(
-      loading: () => Center(
-        child: CircularProgressIndicator(),
-      ),
-      error: (error, stack) => Text('Oops, something unexpected happened'),
-      data: (news) => ListView.builder(
-        itemCount: news.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: Image.network(
-              news[index].enclosure != null
-                  ? news[index].enclosure!.url!
-                  : "https://images.cgames.de/images/gamestar/112/gamestar-logo_2584868.jpg",
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 50.0,
+          child: Center(
+            child: Text(
+              'Gamestar News',
+              style: newsHeader,
             ),
-            title: Text(
-              news[index].title!,
+          ),
+        ),
+        Expanded(
+          child: GamestarNews(),
+        ),
+        Container(
+          height: 50.0,
+          child: Center(
+            child: Text(
+              'Gamepro News',
+              style: newsHeader,
             ),
-            onTap: () async {
-              String _url = news[index].link!;
-              await canLaunch(_url)
-                  ? await launch(_url)
-                  : throw 'Could not launch $_url';
-            },
-          );
-        },
-      ),
+          ),
+        ),
+        Expanded(
+          child: GameproNews(),
+        ),
+        Container(
+          height: 50.0,
+          child: Center(
+            child: Text(
+              'IGN.com News',
+              style: newsHeader,
+            ),
+          ),
+        ),
+        Expanded(
+          child: IgnNews(),
+        ),
+        Container(
+          height: 50.0,
+          child: Center(
+            child: Text(
+              '4Players News',
+              style: newsHeader,
+            ),
+          ),
+        ),
+        Expanded(
+          child: FourPlayersNews(),
+        ),
+      ],
     );
   }
 }
