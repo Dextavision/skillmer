@@ -16,6 +16,8 @@ class Profile extends ConsumerWidget {
       data: (user) => Scaffold(
         appBar: AppBar(
           title: Text('Profile'),
+          backgroundColor: scaffoldBackgroundColor,
+          elevation: 0.0,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {

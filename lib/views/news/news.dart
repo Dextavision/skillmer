@@ -34,18 +34,18 @@ class News extends StatelessWidget {
         Expanded(
           child: GameproNews(),
         ),
-        Container(
-          height: 50.0,
-          child: Center(
-            child: Text(
-              'IGN.com News',
-              style: newsHeader,
-            ),
-          ),
-        ),
-        Expanded(
-          child: IgnNews(),
-        ),
+        // Container(
+        //   height: 50.0,
+        //   child: Center(
+        //     child: Text(
+        //       'IGN.com News',
+        //       style: newsHeader,
+        //     ),
+        //   ),
+        // ),
+        // Expanded(
+        //   child: IgnNews(),
+        // ),
         Container(
           height: 50.0,
           child: Center(

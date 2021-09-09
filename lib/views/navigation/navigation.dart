@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skillmer/shared/constants.dart';
 import 'package:skillmer/shared/models/user_model.dart';
 import 'package:skillmer/view_model/providers/user_provider.dart';
 import 'package:skillmer/views/bottom_bar/bottom_bar.dart';
@@ -33,6 +34,7 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Skillmer'),
+        backgroundColor: scaffoldBackgroundColor,
         leading: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Image(

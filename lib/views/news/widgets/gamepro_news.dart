@@ -19,11 +19,9 @@ class GameproNews extends ConsumerWidget {
         itemCount: news.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Image.network(
-              news[index].enclosure != null
-                  ? news[index].enclosure!.url!
-                  : "https://images.cgames.de/images/gamestar/112/gamestar-logo_2584868.jpg",
-            ),
+            leading: news[index].enclosure != null
+                ? Image.network(news[index].enclosure!.url!)
+                : Image.asset("assets/images/news_default.png"),
             title: Text(
               news[index].title!,
             ),

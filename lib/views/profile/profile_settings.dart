@@ -18,6 +18,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile Settings'),
+        backgroundColor: scaffoldBackgroundColor,
+        elevation: 0.0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
