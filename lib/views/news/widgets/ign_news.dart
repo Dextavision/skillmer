@@ -5,16 +5,19 @@ import 'package:webfeed/webfeed.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class IgnNews extends ConsumerWidget {
+  const IgnNews({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final AsyncValue<List<RssItem>> newsFeed =
         watch(newsProviderAsync("https://feeds.feedburner.com/ign/games-all"));
 
     return newsFeed.when(
-      loading: () => Center(
+      loading: () => const Center(
         child: CircularProgressIndicator(),
       ),
-      error: (error, stack) => Text('Oops, something unexpected happened'),
+      error: (error, stack) =>
+          const Text('Oops, something unexpected happened'),
       data: (news) => ListView.builder(
         itemCount: news.length,
         itemBuilder: (context, index) {

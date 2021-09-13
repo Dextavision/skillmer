@@ -6,6 +6,8 @@ import 'package:skillmer/views/profile/widgets/settings_textfield.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProfileSettings extends StatefulWidget {
+  const ProfileSettings({Key? key}) : super(key: key);
+
   @override
   _ProfileSettingsState createState() => _ProfileSettingsState();
 }
@@ -17,11 +19,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile Settings'),
+        title: const Text('Profile Settings'),
         backgroundColor: scaffoldBackgroundColor,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -47,7 +49,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.camera_alt,
                     color: accentColor,
                   ),
@@ -60,22 +62,22 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 ),
               ],
             ),
-            SettingTextfield(
+            const SettingTextfield(
               textLabel: "Name",
               textValue: "Dextavision",
               isMultiline: false,
             ),
-            SettingTextfield(
+            const SettingTextfield(
               textLabel: "Favourite Games",
               textValue: "Hearthstone, CoD, Final Fantasy",
               isMultiline: true,
             ),
-            SettingTextfield(
+            const SettingTextfield(
               textLabel: "Followed Hashtags",
               textValue: "multiplayer, ps5, fps, mobile",
               isMultiline: true,
             ),
-            SizedBox(
+            const SizedBox(
               height: 50.0,
             ),
             ClipRRect(

@@ -5,15 +5,18 @@ import 'package:skillmer/view_model/providers/user_post_provider.dart';
 import 'package:skillmer/views/user_post/user_post_card.dart';
 
 class UserPostList extends ConsumerWidget {
+  const UserPostList({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final AsyncValue<List<UserPost>> userPostItems = watch(postProviderAsync);
 
     return userPostItems.when(
-      loading: () => Center(
+      loading: () => const Center(
         child: CircularProgressIndicator(),
       ),
-      error: (error, stack) => Text('Oops, something unexpected happened'),
+      error: (error, stack) =>
+          const Text('Oops, something unexpected happened'),
       data: (userPost) => ListView.builder(
         itemCount: userPost.length,
         itemBuilder: (context, index) {

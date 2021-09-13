@@ -6,7 +6,7 @@ class SettingTextfield extends StatelessWidget {
   final String textValue;
   final bool isMultiline;
 
-  SettingTextfield({
+  const SettingTextfield({
     required this.textLabel,
     required this.textValue,
     required this.isMultiline,
@@ -20,19 +20,19 @@ class SettingTextfield extends StatelessWidget {
         maxLines: isMultiline ? null : 1,
         cursorColor: accentColor,
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
               width: 1,
               color: accentColor,
             ),
           ),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
               width: 2,
               color: accentColor,
             ),
           ),
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             color: Colors.white,
           ),
           labelText: textLabel,

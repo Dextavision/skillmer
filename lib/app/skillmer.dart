@@ -13,6 +13,8 @@ import 'package:skillmer/views/user_post/comment_section.dart';
 import '../amplifyconfiguration.dart';
 
 class Skillmer extends StatefulWidget {
+  const Skillmer({Key? key}) : super(key: key);
+
   @override
   _SkillmerState createState() => _SkillmerState();
 }
@@ -20,6 +22,7 @@ class Skillmer extends StatefulWidget {
 class _SkillmerState extends State<Skillmer> {
   bool _amplifyConfigured = false;
 
+  @override
   void initState() {
     super.initState();
     _configureAmplify();
@@ -51,20 +54,20 @@ class _SkillmerState extends State<Skillmer> {
               final currentUser = watch(authUserProviderAsync);
               return currentUser.when(data: (data) {
                 if (data == '') {
-                  return LoginPage();
+                  return const LoginPage();
                 }
-                return Navigation();
+                return const Navigation();
               }, loading: () {
-                return Text('Loading');
+                return const Text('Loading');
               }, error: (e, st) {
                 // TODO: Error Screen
-                return Text('ERROR');
+                return const Text('ERROR');
               });
             })
-          : Text('Amplify not yet configured'),
+          : const Text('Amplify not yet configured'),
       routes: {
-        '/profile': (context) => Profile(),
-        '/profile-settings': (context) => ProfileSettings(),
+        '/profile': (context) => const Profile(),
+        '/profile-settings': (context) => const ProfileSettings(),
         '/comments': (context) => CommentSection(
             ModalRoute.of(context)?.settings.arguments as UserPost),
       },

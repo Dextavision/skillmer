@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skillmer/view_model/providers/authentication_provider.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   void login(BuildContext context) async {
     final authAWS = context.read(authAWSRepositoryProvider);
     await authAWS.signInGoogle();
@@ -12,13 +14,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TextButton(
-        child: Text('Login'),
-        onPressed: () {
-          login(context);
-        },
-      ),
+    return TextButton(
+      child: const Text('Login'),
+      onPressed: () {
+        login(context);
+      },
     );
   }
 }

@@ -36,7 +36,7 @@ class UserService {
     // Get presigned URL to upload File directly to S3
     http.Response presignedURL = await http.post(
       Uri.parse(
-        API_URL,
+        kapiUrl,
       ),
     );
 
@@ -53,7 +53,7 @@ class UserService {
       body: await f.readAsBytes(),
     );
 
-    return ('CLOUDFRONT_DOMAIN / uploadObject.imageName');
+    return ('cloudfrontDomain / uploadObject.imageName');
   }
 
   Future<User> updateUserProfileImage(String profileImageURL) async {
@@ -151,7 +151,7 @@ class UserService {
     User user;
     Results userQuery = await fetchUserFromDB();
 
-    if (userQuery.length == 0) {
+    if (userQuery.isEmpty) {
       user = await createUser();
     } else {
       user = userFactory(userQuery);

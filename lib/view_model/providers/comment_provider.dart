@@ -7,7 +7,7 @@ final commentProvider =
 });
 
 class CommentAsyncNotifier extends StateNotifier<AsyncValue<Comment>> {
-  CommentAsyncNotifier(this.read) : super(AsyncLoading()) {}
+  CommentAsyncNotifier(this.read) : super(const AsyncLoading());
 
   final Reader read;
 

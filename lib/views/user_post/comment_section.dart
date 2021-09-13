@@ -11,9 +11,9 @@ class CommentSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Comments'),
+        title: const Text('Comments'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -23,7 +23,7 @@ class CommentSection extends StatelessWidget {
         itemCount: 3,
         itemBuilder: (context, index) {
           return Row(
-            children: [
+            children: const [
               Expanded(
                 child: PostComment(),
               ),

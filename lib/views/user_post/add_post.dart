@@ -5,16 +5,18 @@ import 'package:skillmer/view_model/providers/user_post_provider.dart';
 import 'package:skillmer/view_model/providers/user_provider.dart';
 
 class AddPost extends StatefulWidget {
+  const AddPost({Key? key}) : super(key: key);
+
   @override
   _AddPostState createState() => _AddPostState();
 }
 
 class _AddPostState extends State<AddPost> {
-  TextEditingController postTextController = new TextEditingController();
+  TextEditingController postTextController = TextEditingController();
 
   void addUserPost(BuildContext context) {
-    if (postTextController.text.length == 0) {
-      final snackBar = SnackBar(
+    if (postTextController.text.isEmpty) {
+      const snackBar = SnackBar(
         content: Text(
           'Ups! No content was provided!',
           style: TextStyle(
@@ -38,7 +40,7 @@ class _AddPostState extends State<AddPost> {
       '/',
     );
 
-    final snackBar = SnackBar(
+    const snackBar = SnackBar(
       content: Text(
         'Successfully added Item!',
         style: TextStyle(
@@ -60,7 +62,7 @@ class _AddPostState extends State<AddPost> {
           Row(
             children: [
               IconButton(
-                icon: Icon(Icons.block),
+                icon: const Icon(Icons.block),
                 onPressed: () {},
                 color: accentColor,
               ),
@@ -69,32 +71,32 @@ class _AddPostState extends State<AddPost> {
           Expanded(
             child: TextField(
               controller: postTextController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Whats up?',
               ),
               maxLines: null,
             ),
           ),
-          Divider(),
+          const Divider(),
           Row(
             children: [
               IconButton(
-                icon: Icon(Icons.image),
+                icon: const Icon(Icons.image),
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(Icons.video_call),
+                icon: const Icon(Icons.video_call),
                 onPressed: () {},
               ),
             ],
           ),
-          Divider(),
+          const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: Icon(Icons.control_point),
+                icon: const Icon(Icons.control_point),
                 onPressed: () {
                   addUserPost(context);
                 },

@@ -14,7 +14,7 @@ final postProviderAsync =
 );
 
 class PostAsyncNotifier extends StateNotifier<AsyncValue<List<UserPost>>> {
-  PostAsyncNotifier(this.read) : super(AsyncLoading()) {
+  PostAsyncNotifier(this.read) : super(const AsyncLoading()) {
     _init();
   }
 
@@ -32,7 +32,7 @@ class PostAsyncNotifier extends StateNotifier<AsyncValue<List<UserPost>>> {
   }
 
   void addUserPost(String postText) async {
-    state = AsyncLoading();
+    state = const AsyncLoading();
 
     int userID = read(userProviderAsync).data!.value.id;
 
@@ -43,7 +43,7 @@ class PostAsyncNotifier extends StateNotifier<AsyncValue<List<UserPost>>> {
   }
 
   void deleteUserPost(int postID) async {
-    state = AsyncLoading();
+    state = const AsyncLoading();
 
     List<UserPost> posts = await read(userPostProvider).deleteUserPost(postID);
 

@@ -3,14 +3,15 @@ import 'package:skillmer/shared/constants.dart';
 import 'package:skillmer/views/news/widgets/four_players_news.dart';
 import 'package:skillmer/views/news/widgets/gamepro_news.dart';
 import 'package:skillmer/views/news/widgets/gamestar_news.dart';
-import 'package:skillmer/views/news/widgets/ign_news.dart';
 
 class News extends StatelessWidget {
+  const News({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        Container(
+      children: const [
+        SizedBox(
           height: 50.0,
           child: Center(
             child: Text(
@@ -22,7 +23,7 @@ class News extends StatelessWidget {
         Expanded(
           child: GamestarNews(),
         ),
-        Container(
+        SizedBox(
           height: 50.0,
           child: Center(
             child: Text(
@@ -46,7 +47,7 @@ class News extends StatelessWidget {
         // Expanded(
         //   child: IgnNews(),
         // ),
-        Container(
+        SizedBox(
           height: 50.0,
           child: Center(
             child: Text(

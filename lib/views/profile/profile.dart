@@ -6,27 +6,30 @@ import 'package:skillmer/view_model/providers/user_provider.dart';
 import 'package:skillmer/views/profile/profile_tabs.dart';
 
 class Profile extends ConsumerWidget {
+  const Profile({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final AsyncValue<User> user = watch(userProviderAsync);
 
     return user.when(
-      loading: () => CircularProgressIndicator(),
-      error: (error, stack) => Text('Oops, something unexpected happened'),
+      loading: () => const CircularProgressIndicator(),
+      error: (error, stack) =>
+          const Text('Oops, something unexpected happened'),
       data: (user) => Scaffold(
         appBar: AppBar(
-          title: Text('Profile'),
+          title: const Text('Profile'),
           backgroundColor: scaffoldBackgroundColor,
           elevation: 0.0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.settings),
+              icon: const Icon(Icons.settings),
               onPressed: () {
                 Navigator.pushNamed(
                   context,
@@ -53,28 +56,24 @@ class Profile extends ConsumerWidget {
                   ),
                 ),
               ),
-              Container(
-                child: Text(
-                  user.username,
-                  style: profileText,
-                ),
+              Text(
+                user.username,
+                style: profileText,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Column(
                   children: [
-                    Divider(
+                    const Divider(
                       color: accentColor,
                       indent: 120.0,
                       endIndent: 120.0,
                     ),
-                    Container(
-                      child: Text(
-                        user.level,
-                        style: profileText,
-                      ),
+                    Text(
+                      user.level,
+                      style: profileText,
                     ),
-                    Divider(
+                    const Divider(
                       color: accentColor,
                       indent: 120.0,
                       endIndent: 120.0,
@@ -89,7 +88,7 @@ class Profile extends ConsumerWidget {
                   children: [
                     Column(
                       children: [
-                        Text(
+                        const Text(
                           'Posts',
                           style: profileText,
                         ),
@@ -101,7 +100,7 @@ class Profile extends ConsumerWidget {
                     ),
                     Column(
                       children: [
-                        Text(
+                        const Text(
                           'Followers',
                           style: profileText,
                         ),
@@ -113,7 +112,7 @@ class Profile extends ConsumerWidget {
                     ),
                     Column(
                       children: [
-                        Text(
+                        const Text(
                           'Follows',
                           style: profileText,
                         ),
@@ -126,7 +125,7 @@ class Profile extends ConsumerWidget {
                   ],
                 ),
               ),
-              Expanded(
+              const Expanded(
                 child: ProfileTabs(),
               ),
             ],

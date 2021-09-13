@@ -5,6 +5,8 @@ import 'package:skillmer/views/profile/widgets/skilled_posts.dart';
 import 'package:skillmer/views/user_post/user_post_list.dart';
 
 class ProfileTabs extends StatelessWidget {
+  const ProfileTabs({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -15,7 +17,7 @@ class ProfileTabs extends StatelessWidget {
           automaticallyImplyLeading: false,
           flexibleSpace: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [
+            children: const [
               TabBar(
                 tabs: [
                   Tab(
@@ -32,7 +34,7 @@ class ProfileTabs extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             UserPostList(),
             SkilledPosts(),

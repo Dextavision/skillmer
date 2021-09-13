@@ -8,25 +8,26 @@ import 'package:skillmer/view_model/providers/user_provider.dart';
 class UserPostIconList extends ConsumerWidget {
   final UserPost userPost;
 
-  UserPostIconList({required this.userPost});
+  const UserPostIconList({required this.userPost, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final AsyncValue<User> user = watch(userProviderAsync);
 
     return user.when(
-      loading: () => CircularProgressIndicator(),
-      error: (error, stack) => Text('Oops, something unexpected happened'),
+      loading: () => const CircularProgressIndicator(),
+      error: (error, stack) =>
+          const Text('Oops, something unexpected happened'),
       data: (user) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            icon: Icon(Icons.ios_share),
+            icon: const Icon(Icons.ios_share),
             onPressed: () {},
             iconSize: 20.0,
           ),
           IconButton(
-            icon: Icon(Icons.bookmark_outline),
+            icon: const Icon(Icons.bookmark_outline),
             onPressed: () {
               context
                   .read(userProviderAsync.notifier)
@@ -38,7 +39,7 @@ class UserPostIconList extends ConsumerWidget {
                 : Colors.white,
           ),
           IconButton(
-            icon: Icon(Icons.messenger_outline_sharp),
+            icon: const Icon(Icons.messenger_outline_sharp),
             onPressed: () {
               Navigator.pushNamed(context, '/comments', arguments: userPost);
             },
@@ -46,7 +47,7 @@ class UserPostIconList extends ConsumerWidget {
             iconSize: 20.0,
           ),
           IconButton(
-            icon: Icon(Icons.plus_one_outlined),
+            icon: const Icon(Icons.plus_one_outlined),
             onPressed: () {
               context.read(userProviderAsync.notifier).likePost(userPost.id);
             },

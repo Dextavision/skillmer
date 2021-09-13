@@ -13,7 +13,7 @@ final userProviderAsync =
 );
 
 class UserAsyncNotifier extends StateNotifier<AsyncValue<User>> {
-  UserAsyncNotifier(this.read) : super(AsyncLoading()) {
+  UserAsyncNotifier(this.read) : super(const AsyncLoading()) {
     _init();
   }
 

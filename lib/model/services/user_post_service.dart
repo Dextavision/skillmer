@@ -106,7 +106,7 @@ class UserPostService {
       hashtags = await _getHashtagsFromPost(postID);
 
       userPosts.add(
-        new UserPost(
+        UserPost(
           id: postID,
           userID: userID,
           username: user.username,

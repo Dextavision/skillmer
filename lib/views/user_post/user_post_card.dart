@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class UserPostCard extends StatelessWidget {
   final UserPost userPost;
 
-  UserPostCard({required this.userPost});
+  const UserPostCard({required this.userPost, Key? key}) : super(key: key);
 
   void _selectedPopupMenu(BuildContext context, int item) {
     switch (item) {
@@ -32,7 +32,7 @@ class UserPostCard extends StatelessWidget {
     context.read(postProviderAsync.notifier).deleteUserPost(userPost.id);
     context.read(userProviderAsync).data!.value.postsCount--;
 
-    final snackBar = SnackBar(
+    const snackBar = SnackBar(
       content: Text(
         'Successfully deleted Item!',
         style: TextStyle(
@@ -97,11 +97,11 @@ class UserPostCard extends StatelessWidget {
                       child: PopupMenuButton<int>(
                         color: accentColor,
                         itemBuilder: (context) => [
-                          PopupMenuItem<int>(
+                          const PopupMenuItem<int>(
                             value: 0,
                             child: Text("Delete"),
                           ),
-                          PopupMenuItem<int>(
+                          const PopupMenuItem<int>(
                             value: 1,
                             child: Text("Edit"),
                           ),
@@ -116,14 +116,14 @@ class UserPostCard extends StatelessWidget {
                       maintainAnimation: true,
                     );
                   }, loading: () {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }, error: (e, st) {
-                    return Text('ERROR');
+                    return const Text('ERROR');
                   });
                 }),
               ],
             ),
-            Divider(
+            const Divider(
               color: accentColor,
             ),
             Row(
@@ -134,7 +134,7 @@ class UserPostCard extends StatelessWidget {
                     padding: const EdgeInsets.only(
                       left: 10.0,
                     ),
-                    child: Container(
+                    child: SizedBox(
                       height: 60.0,
                       child: Text(userPost.textPost ?? ''),
                     ),
@@ -143,25 +143,25 @@ class UserPostCard extends StatelessWidget {
               ],
             ),
             Visibility(
-              child: Divider(
+              child: const Divider(
                 color: accentColor,
               ),
-              visible: userPost.hashtags!.length > 0,
+              visible: userPost.hashtags!.isNotEmpty,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                userPost.hashtags!.length > 0
+                userPost.hashtags!.isNotEmpty
                     ? Text(
                         userPost.hashtags!.join(","),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                         ),
                       )
-                    : Text(''),
+                    : const Text(''),
               ],
             ),
-            Divider(
+            const Divider(
               color: accentColor,
             ),
             UserPostIconList(

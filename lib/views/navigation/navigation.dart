@@ -9,6 +9,8 @@ import 'package:skillmer/views/user_post/add_post.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Navigation extends StatefulWidget {
+  const Navigation({Key? key}) : super(key: key);
+
   @override
   _NavigationState createState() => _NavigationState();
 }
@@ -25,18 +27,18 @@ class _NavigationState extends State<Navigation> {
   final List<Widget> _skillmerScreens = <Widget>[
     Home(),
     // Search(),
-    AddPost(),
-    News()
+    const AddPost(),
+    const News()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Skillmer'),
+        title: const Text('Skillmer'),
         backgroundColor: scaffoldBackgroundColor,
-        leading: Padding(
-          padding: const EdgeInsets.all(10.0),
+        leading: const Padding(
+          padding: EdgeInsets.all(10.0),
           child: Image(
             image: AssetImage('assets/images/Skillmer.png'),
           ),
@@ -56,9 +58,10 @@ class _NavigationState extends State<Navigation> {
                     image: DecorationImage(
                       image: user.when(
                         data: (user) => NetworkImage(user.profileImage),
-                        loading: () => AssetImage('assets/images/Skillmer.png'),
+                        loading: () =>
+                            const AssetImage('assets/images/Skillmer.png'),
                         error: (error, stack) =>
-                            AssetImage('assets/images/Skillmer.png'),
+                            const AssetImage('assets/images/Skillmer.png'),
                       ),
                       fit: BoxFit.fill,
                     ),

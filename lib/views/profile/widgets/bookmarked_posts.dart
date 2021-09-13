@@ -4,15 +4,18 @@ import 'package:skillmer/view_model/providers/user_provider.dart';
 import 'package:skillmer/views/user_post/user_post_card.dart';
 
 class BookmarkedPosts extends ConsumerWidget {
+  const BookmarkedPosts({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final user = watch(userProviderAsync);
 
     return user.when(
-      loading: () => Center(
+      loading: () => const Center(
         child: CircularProgressIndicator(),
       ),
-      error: (error, stack) => Text('Oops, something unexpected happened'),
+      error: (error, stack) =>
+          const Text('Oops, something unexpected happened'),
       data: (bookmarkedPosts) => ListView.builder(
         itemCount: bookmarkedPosts.bookmarkedPostsList.length | 0,
         itemBuilder: (context, index) {
