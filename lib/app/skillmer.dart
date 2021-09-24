@@ -69,7 +69,7 @@ class _SkillmerState extends State<Skillmer> {
         '/profile': (context) => const Profile(),
         '/profile-settings': (context) => const ProfileSettings(),
         '/comments': (context) => CommentSection(
-            ModalRoute.of(context)?.settings.arguments as UserPost),
+            userPost: ModalRoute.of(context)?.settings.arguments as UserPost),
       },
     );
   }

@@ -6,11 +6,12 @@ class SettingTextfield extends StatelessWidget {
   final String textValue;
   final bool isMultiline;
 
-  const SettingTextfield({
-    required this.textLabel,
-    required this.textValue,
-    required this.isMultiline,
-  });
+  const SettingTextfield(
+      {required this.textLabel,
+      required this.textValue,
+      required this.isMultiline,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

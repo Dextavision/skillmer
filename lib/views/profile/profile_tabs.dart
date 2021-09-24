@@ -19,6 +19,7 @@ class ProfileTabs extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: const [
               TabBar(
+                indicatorColor: accentColor,
                 tabs: [
                   Tab(
                     text: 'Items',

@@ -25,7 +25,7 @@ class _NavigationState extends State<Navigation> {
   }
 
   final List<Widget> _skillmerScreens = <Widget>[
-    Home(),
+    const Home(),
     // Search(),
     const AddPost(),
     const News()

@@ -4,7 +4,9 @@ import 'package:skillmer/shared/constants.dart';
 class BottomBar extends StatelessWidget {
   final Function onTapped;
   final int selectedIndex;
-  const BottomBar({required this.onTapped, required this.selectedIndex});
+  const BottomBar(
+      {required this.onTapped, required this.selectedIndex, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

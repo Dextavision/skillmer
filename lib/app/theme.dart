@@ -3,16 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:skillmer/shared/constants.dart';
 
 class AppTheme {
-  static final _primaryColor = primaryColor;
-  static final _accentColor = accentColor;
+  static const _kPrimaryColor = primaryColor;
+  static const _kAccentColor = accentColor;
 
   static ThemeData dark() {
     final textTheme = _getTextTheme(brightness: Brightness.dark);
 
     return ThemeData(
       brightness: Brightness.dark,
-      primaryColor: _primaryColor,
-      accentColor: _accentColor,
+      primaryColor: _kPrimaryColor,
+      colorScheme: const ColorScheme.dark(
+        secondary: _kAccentColor,
+      ),
       textTheme: textTheme,
       primaryTextTheme: textTheme,
       scaffoldBackgroundColor: scaffoldBackgroundColor,

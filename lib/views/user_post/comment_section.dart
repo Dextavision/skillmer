@@ -5,7 +5,7 @@ import 'package:skillmer/views/user_post/widgets/post_comment.dart';
 class CommentSection extends StatelessWidget {
   final UserPost userPost;
 
-  const CommentSection(this.userPost);
+  const CommentSection({required this.userPost, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
